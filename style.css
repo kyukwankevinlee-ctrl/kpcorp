@@ -17,22 +17,14 @@ header{
 }
 
 .hero{
-  background:#071A39;
+  background:
+    linear-gradient(rgba(7,26,57,.78),rgba(7,26,57,.78)),
+    url("images/hero.jpg");
+  background-size:cover;
+  background-position:center;
   color:white;
   text-align:center;
-  padding:100px 20px;
-}
-
-.hero h1{
-  font-size:56px;
-  margin:0;
-}
-
-.hero p{
-  max-width:700px;
-  margin:20px auto;
-  line-height:1.8;
-  color:#dbeafe;
+  padding:120px 20px;
 }
 
 .button{
