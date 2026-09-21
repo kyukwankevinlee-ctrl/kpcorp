@@ -57,3 +57,29 @@ footer{
   text-align:center;
   padding:30px;
 }
+.hero{
+  background:
+    linear-gradient(rgba(7,26,57,.75), rgba(7,26,57,.75)),
+    url("https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1600&q=80");
+  background-size:cover;
+  background-position:center;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  padding:24px;
+  box-shadow:0 8px 20px rgba(0,0,0,.06);
+}
+
+.card h3{
+  margin-top:0;
+  color:#071A39;
+}
