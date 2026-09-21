@@ -121,3 +121,14 @@ button{
   color:#BFDBFE;
   font-size:13px;
 }
+.about{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+  align-items:center;
+}
+
+.about-img{
+  width:100%;
+  border-radius:18px;
+}
