@@ -64,17 +64,31 @@
 
 <footer>
   © 2026 KP Holdings
-  <section class="section">
+
+<section class="section" id="contact">
   <h2>Request a Quotation</h2>
 
-  <form id="rfq-form">
-    <input type="text" placeholder="Company Name" required>
-    <input type="email" placeholder="Email Address" required>
-    <input type="text" placeholder="Country" required>
-    <textarea placeholder="Product, Quantity & Requirement" required></textarea>
-    <button type="submit" class="button">Send RFQ</button>
-  </form>
+  <form action="https://formsubmit.co/info@kpcorp.co.kr" method="POST">
 
+    <input type="text" name="Company" placeholder="Company Name" required>
+
+    <input type="text" name="Country" placeholder="Country" required>
+
+    <input type="email" name="Email" placeholder="Email Address" required>
+
+    <textarea name="Requirement"
+      placeholder="Product, Quantity & Requirement"
+      required></textarea>
+
+    <input type="hidden" name="_subject" value="New RFQ - KP Holdings">
+    <input type="hidden" name="_captcha" value="false">
+
+    <button type="submit" class="button">
+      Send RFQ
+    </button>
+
+  </form>
+</section>
   <p id="success" style="display:none;color:green;">
     Thank you! We will contact you within 24 hours.
   </p>
