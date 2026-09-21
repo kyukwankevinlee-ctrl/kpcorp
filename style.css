@@ -106,3 +106,26 @@ button{
   border:none;
   cursor:pointer;
 }
+.logo-wrap{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.logo-mark{
+  width:54px;
+  height:54px;
+  border-radius:14px;
+  background:#2563EB;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  font-size:22px;
+}
+
+.tagline{
+  color:#BFDBFE;
+  font-size:13px;
+}
