@@ -260,3 +260,14 @@ header{
 }
 
 }
+.logo-image{
+    height:54px;
+    width:auto;
+}
+
+header{
+    background:#071A39;
+    padding:18px 60px;
+    display:flex;
+    align-items:center;
+}
