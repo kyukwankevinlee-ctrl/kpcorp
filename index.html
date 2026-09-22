@@ -6,35 +6,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KP Holdings | Global Industrial Sourcing</title>
 
-  <meta name="description" content="KP Holdings is a global industrial sourcing partner connecting buyers with qualified manufacturers across Asia.">
+  <meta name="description"
+        content="KP Holdings connects global buyers with qualified manufacturers across Asia.">
 
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- ================= HEADER ================= -->
+<header>
 
-  <header>
+  <div class="logo-wrap">
+    <img src="images/logo.png" class="logo-image" alt="KP Holdings">
+  </div>
 
-    <div class="logo-wrap">
-      <img src="images/logo.png"
-           alt="KP Holdings"
-           class="logo-image">
-    </div>
+  <nav class="nav">
+    <a href="#">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-    <nav class="nav">
-      <a href="#">Home</a>
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#contact">Contact</a>
-    </nav>
+</header>
 
-  </header>
+<section class="hero">
 
-  <!-- ================= HERO ================= -->
-
-  <section class="hero">
+  <div class="hero-content">
 
     <h1>Your Global Partner in Industrial Sourcing</h1>
 
@@ -43,212 +40,146 @@
       China, Taiwan, Vietnam and other Asian manufacturing markets.
     </p>
 
-    <a class="button" href="#contact">Request RFQ</a>
+    <a href="#contact" class="button">Request RFQ →</a>
 
-  </section>
+  </div>
 
-  <!-- ================= KPI ================= -->
+</section>
 
-  <section class="stats">
+<section class="stats">
 
-    <div class="stat">
-      <h2>300+</h2>
-      <p>Qualified Suppliers</p>
-    </div>
+  <div class="stat">
+    <h2>300+</h2>
+    <p>Qualified Suppliers</p>
+  </div>
 
-    <div class="stat">
-      <h2>40+</h2>
-      <p>Export Markets</p>
-    </div>
+  <div class="stat">
+    <h2>40+</h2>
+    <p>Export Markets</p>
+  </div>
 
-    <div class="stat">
-      <h2>48h</h2>
-      <p>RFQ Response</p>
-    </div>
+  <div class="stat">
+    <h2>48h</h2>
+    <p>RFQ Response</p>
+  </div>
 
-    <div class="stat">
-      <h2>100%</h2>
-      <p>Export Support</p>
-    </div>
+  <div class="stat">
+    <h2>100%</h2>
+    <p>Export Support</p>
+  </div>
 
-  </section>
+</section>
 
-  <!-- ================= ABOUT ================= -->
+<section class="section about" id="about">
 
-  <section class="section about" id="about">
+  <div class="about-image">
+    <img src="images/about.jpg" class="about-img" alt="About KP Holdings">
+  </div>
 
-    <img src="images/about.jpg"
-         class="about-img"
-         alt="About KP Holdings">
+  <div class="about-text">
 
-    <div>
+    <span class="label">ABOUT KP HOLDINGS</span>
 
-      <h2>About KP Holdings</h2>
+    <h2>Your Trusted Sourcing Partner</h2>
 
-      <p>
-        KP Holdings is an independent global industrial sourcing company
-        connecting international buyers with verified manufacturers across Asia.
-        We specialize in OEM procurement, supplier sourcing, quotation
-        management and cross-border export coordination.
-      </p>
-
-      <br>
-
-      <p>
-        Our mission is to deliver competitive pricing, reliable suppliers
-        and professional trade support for customers in the Middle East,
-        Africa, Europe and worldwide.
-      </p>
-
-    </div>
-
-  </section>
-
-  <!-- ================= SERVICES ================= -->
-
-  <section class="section" id="services">
-
-    <h2>Our Services</h2>
-
-    <div class="cards">
-
-      <div class="card">
-        <div class="icon">🌏</div>
-        <h3>Global Supplier Sourcing</h3>
-        <p>
-          Identify qualified manufacturers across China, Taiwan, Vietnam
-          and other Asian markets.
-        </p>
-      </div>
-
-      <div class="card">
-        <div class="icon">📋</div>
-        <h3>RFQ Management</h3>
-        <p>
-          Compare quotations by price, MOQ, lead time and commercial terms.
-        </p>
-      </div>
-
-      <div class="card">
-        <div class="icon">🏭</div>
-        <h3>OEM Procurement</h3>
-        <p>
-          Support OEM & ODM manufacturing with verified production partners.
-        </p>
-      </div>
-
-      <div class="card">
-        <div class="icon">🚢</div>
-        <h3>Export Coordination</h3>
-        <p>
-          Commercial Invoice, Packing List, Certificate of Origin and shipment support.
-        </p>
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- ================= CONTACT ================= -->
-
-  <section class="section">
-
-    <h2>Contact</h2>
-
-    <p><strong>Company</strong><br>KP Holdings</p>
-
-    <br>
-
-    <p><strong>Email</strong><br>info@kpcorp.co.kr</p>
-
-    <br>
-
-    <p><strong>Website</strong><br>www.kpcorp.co.kr</p>
-
-  </section>
-
-  <!-- ================= RFQ ================= -->
-
-  <section class="section" id="contact">
-
-    <h2>Request a Quotation</h2>
-
-    <form id="rfq-form"
-          action="https://formsubmit.co/info@kpcorp.co.kr"
-          method="POST">
-
-      <input type="hidden"
-             name="_subject"
-             value="New RFQ - KP Holdings">
-
-      <input type="hidden"
-             name="_captcha"
-             value="false">
-
-      <input type="text"
-             name="Company"
-             placeholder="Company Name"
-             required>
-
-      <input type="text"
-             name="Country"
-             placeholder="Country"
-             required>
-
-      <input type="email"
-             name="Email"
-             placeholder="Email Address"
-             required>
-
-      <textarea
-        name="Requirement"
-        placeholder="Product, Quantity & Requirement"
-        required></textarea>
-
-      <button type="submit">
-        Send RFQ
-      </button>
-
-    </form>
-
-    <p id="success"
-       style="display:none;color:#16A34A;margin-top:20px;text-align:center;">
-      Thank you! Your RFQ has been submitted successfully.
+    <p>
+      KP Holdings is an independent global industrial sourcing company
+      connecting international buyers with verified manufacturers across Asia.
+      We specialize in OEM procurement, supplier sourcing, quotation management
+      and cross-border export coordination.
     </p>
 
-  </section>
+    <p>
+      Our mission is to deliver competitive pricing, reliable suppliers and
+      professional trade support for customers in the Middle East, Africa,
+      Europe and worldwide.
+    </p>
 
-  <!-- ================= FOOTER ================= -->
+  </div>
 
-  <footer>
+</section>
 
-    <h3>KP Holdings</h3>
+<section class="section" id="services">
 
-    <p>Global Industrial Sourcing</p>
+  <span class="label">OUR SERVICES</span>
 
-    <br>
+  <h2>What We Do</h2>
 
-    <p>www.kpcorp.co.kr</p>
+  <div class="cards">
 
-    <p>info@kpcorp.co.kr</p>
+    <div class="card">
+      <div class="icon">🌐</div>
+      <h3>Global Supplier Sourcing</h3>
+      <p>Identify qualified manufacturers across China, Taiwan, Vietnam and other Asian markets.</p>
+    </div>
 
-    <br>
+    <div class="card">
+      <div class="icon">📄</div>
+      <h3>RFQ Management</h3>
+      <p>Compare quotations by price, MOQ, lead time and commercial terms.</p>
+    </div>
 
-    <p>© 2026 KP Holdings. All Rights Reserved.</p>
+    <div class="card">
+      <div class="icon">🏭</div>
+      <h3>OEM Procurement</h3>
+      <p>Support OEM & ODM manufacturing with verified production partners.</p>
+    </div>
 
-  </footer>
+    <div class="card">
+      <div class="icon">🚢</div>
+      <h3>Export Coordination</h3>
+      <p>Commercial Invoice, Packing List, Certificate of Origin and shipment support.</p>
+    </div>
 
-  <!-- ================= SCRIPT ================= -->
+  </div>
 
-  <script>
+</section>
 
-    const form = document.getElementById("rfq-form");
+<section class="section" id="contact">
 
-    form.addEventListener("submit", function () {
-      document.getElementById("success").style.display = "block";
-    });
+  <h2>Request a Quotation</h2>
 
-  </script>
+  <p class="contact-sub">
+    Send us your RFQ and our sourcing team will respond within 48 hours.
+  </p>
+
+  <form action="https://formsubmit.co/info@kpcorp.co.kr" method="POST">
+
+    <input type="hidden" name="_subject" value="New RFQ - KP Holdings">
+    <input type="hidden" name="_captcha" value="false">
+
+    <input type="text" name="Company" placeholder="Company Name" required>
+
+    <input type="text" name="Country" placeholder="Country" required>
+
+    <input type="email" name="Email" placeholder="Email Address" required>
+
+    <textarea name="Requirement"
+      placeholder="Product, Quantity & Requirement"
+      required></textarea>
+
+    <button type="submit">Send RFQ</button>
+
+  </form>
+
+</section>
+
+<footer>
+
+  <img src="images/logo.png" class="footer-logo" alt="KP Holdings">
+
+  <p>Global Industrial Sourcing</p>
+
+  <div class="footer-info">
+    <span>www.kpcorp.co.kr</span>
+    <span>info@kpcorp.co.kr</span>
+  </div>
+
+  <p class="copyright">
+    © 2026 KP Holdings. All Rights Reserved.
+  </p>
+
+</footer>
 
 </body>
 </html>
