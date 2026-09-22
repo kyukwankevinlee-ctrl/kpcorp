@@ -3,12 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KP Holdings</title>
+  <title>KP Holdings | Global Industrial Sourcing</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
+<body>
+
 <header>
   <div class="logo-wrap">
     <div class="logo-mark">KP</div>
+
     <div>
       <div class="logo">KP Holdings</div>
       <div class="tagline">Global Industrial Sourcing</div>
@@ -18,99 +22,134 @@
 
 <section class="hero">
   <h1>Global Industrial Sourcing</h1>
+
   <p>
     We connect global buyers with qualified manufacturers across
     China, Taiwan, Vietnam and other Asian manufacturing markets.
   </p>
-  <a class="button" href="mailto:info@kpcorp.co.kr">Request RFQ</a>
+
+  <a class="button" href="#contact">Request RFQ</a>
 </section>
 
 <section class="section about">
-  <img src="images/about.jpg" class="about-img">
+
+  <img src="images/about.jpg" class="about-img" alt="About KP Holdings">
 
   <div>
     <h2>About KP Holdings</h2>
+
     <p>
-      Independent sourcing partner connecting international buyers
-      with qualified manufacturers across Asia.
+      KP Holdings is an independent sourcing company specializing in
+      supplier sourcing, OEM procurement, quotation management and
+      cross-border industrial trade.
     </p>
   </div>
+
 </section>
 
 <section class="section">
+
   <h2>Our Services</h2>
 
   <div class="cards">
+
     <div class="card">
+      <div class="icon">🌏</div>
       <h3>Global Supplier Sourcing</h3>
       <p>Qualified manufacturers across China, Taiwan and Vietnam.</p>
     </div>
 
     <div class="card">
+      <div class="icon">📋</div>
       <h3>RFQ Management</h3>
       <p>Compare quotations by price, MOQ and lead time.</p>
     </div>
 
     <div class="card">
+      <div class="icon">🏭</div>
       <h3>OEM Procurement</h3>
       <p>Factory matching and custom manufacturing support.</p>
     </div>
 
     <div class="card">
+      <div class="icon">🚢</div>
       <h3>Export Coordination</h3>
       <p>Commercial invoice, packing list and shipment support.</p>
     </div>
+
   </div>
+
 </section>
 
 <section class="section">
+
   <h2>Contact</h2>
 
-  <p><b>Email</b><br>info@kpcorp.co.kr</p>
+  <p><strong>Email</strong><br>info@kpcorp.co.kr</p>
 
-  <p><b>Website</b><br>www.kpcorp.co.kr</p>
+  <p><strong>Website</strong><br>www.kpcorp.co.kr</p>
+
 </section>
 
-<footer>
-  © 2026 KP Holdings
-
 <section class="section" id="contact">
+
   <h2>Request a Quotation</h2>
 
-  <form action="https://formsubmit.co/info@kpcorp.co.kr" method="POST">
+  <form id="rfq-form"
+        action="https://formsubmit.co/info@kpcorp.co.kr"
+        method="POST">
 
-    <input type="text" name="Company" placeholder="Company Name" required>
+    <input type="text"
+           name="Company"
+           placeholder="Company Name"
+           required>
 
-    <input type="text" name="Country" placeholder="Country" required>
+    <input type="text"
+           name="Country"
+           placeholder="Country"
+           required>
 
-    <input type="email" name="Email" placeholder="Email Address" required>
+    <input type="email"
+           name="Email"
+           placeholder="Email Address"
+           required>
 
-    <textarea name="Requirement"
+    <textarea
+      name="Requirement"
       placeholder="Product, Quantity & Requirement"
       required></textarea>
 
-    <input type="hidden" name="_subject" value="New RFQ - KP Holdings">
-    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden"
+           name="_subject"
+           value="New RFQ - KP Holdings">
+
+    <input type="hidden"
+           name="_captcha"
+           value="false">
 
     <button type="submit" class="button">
       Send RFQ
     </button>
 
   </form>
-</section>
+
   <p id="success" style="display:none;color:green;">
     Thank you! We will contact you within 24 hours.
   </p>
+
 </section>
 
+<footer>
+  © 2026 KP Holdings · Global Industrial Sourcing
+</footer>
+
 <script>
-document.getElementById("rfq-form").addEventListener("submit", function(e){
-  e.preventDefault();
-  document.getElementById("success").style.display="block";
-  this.reset();
+const form = document.getElementById("rfq-form");
+
+form.addEventListener("submit", function () {
+  document.getElementById("success").style.display = "block";
 });
 </script>
-</footer>
-</html>
 
-HTML
+</body>
+</html>
