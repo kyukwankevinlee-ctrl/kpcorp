@@ -702,6 +702,82 @@ td{
 
 <div class="action-row">
   <button id="rfqSaveBtn" class="primary" onclick="saveRFQ()">
+    function editRFQ(id){
+
+  const r=rfqs.find(x=>x.id===id);
+
+  if(!r)return;
+
+
+  editingRFQId=id;
+
+
+  setValue("rBuyer",r.buyer_id);
+  setValue("rProduct",r.product);
+  setValue("rQuantity",r.quantity);
+  setValue("rSupplier",r.supplier_id);
+  setValue("rCurrency",r.currency||"USD");
+
+  setValue(
+    "rUnitCost",
+    r.unit_cost ?? r.purchase_cost
+  );
+
+  setValue(
+    "rUnitSales",
+    r.unit_sales_price ?? r.sales_price
+  );
+
+  setValue("rStatus",r.status);
+  setValue("rNotes",r.notes);
+
+
+  calculateRFQ();
+
+
+  document.getElementById("rfqSaveBtn")
+    .textContent="Save Changes";
+
+  document.getElementById("rfqCancelBtn")
+    .style.display="inline-block";
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+function cancelRFQEdit(){
+
+  editingRFQId=null;
+
+
+  clear([
+    "rProduct",
+    "rQuantity",
+    "rUnitCost",
+    "rUnitSales",
+    "rNotes"
+  ]);
+
+
+  setValue("rBuyer","");
+  setValue("rSupplier","");
+  setValue("rCurrency","USD");
+  setValue("rStatus","RFQ Received");
+
+
+  calculateRFQ();
+
+
+  document.getElementById("rfqSaveBtn")
+    .textContent="+ Create RFQ";
+
+  document.getElementById("rfqCancelBtn")
+    .style.display="none";
+}
     + Create RFQ
   </button>
 
