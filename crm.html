@@ -1522,9 +1522,23 @@ function renderBuyers(){
       <td>${esc(b.next_follow_up)}</td>
       <td>
         <div class="row-actions">
-          <button class="edit-btn" onclick="editBuyer(${b.id})">Edit</button>
-          <button class="delete-btn" onclick="deleteBuyer(${b.id})">Delete</button>
-        </div>
+
+  <button class="edit-btn"
+          onclick="editRFQ(${r.id})">
+    Edit
+  </button>
+
+  <button class="po-btn"
+          onclick="createPOFromRFQ(${r.id})">
+    Create PO
+  </button>
+
+  <button class="delete-btn"
+          onclick="deleteRFQ(${r.id})">
+    Delete
+  </button>
+
+</div>
       </td>
     </tr>
   `).join("");
