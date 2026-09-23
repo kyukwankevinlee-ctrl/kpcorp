@@ -700,7 +700,18 @@ td{
 
 <textarea id="rNotes" placeholder="Notes"></textarea>
 
-<button class="primary" onclick="addRFQ()">+ Create RFQ</button>
+<div class="action-row">
+  <button id="rfqSaveBtn" class="primary" onclick="saveRFQ()">
+    + Create RFQ
+  </button>
+
+  <button id="rfqCancelBtn"
+          class="secondary"
+          onclick="cancelRFQEdit()"
+          style="display:none">
+    Cancel Edit
+  </button>
+</div>
 
 </div>
 
