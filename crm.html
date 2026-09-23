@@ -1561,8 +1561,8 @@ function renderDashboard(){
 
   const profit=rfqs
     .filter(r=>r.status!=="Lost")
-    .reduce((sum,r)=>sum+Number(r.gross_profit||0),0);
-
+    .reduce((sum,r)=>
+  sum + (Number(r.total_sales||0) - Number(r.total_cost||0)),0);
   document.getElementById("pipeline").textContent=
     "$"+pipeline.toLocaleString("en-US",{maximumFractionDigits:2});
 
