@@ -1189,13 +1189,81 @@ function calculateRFQ(){
     c.margin.toFixed(2)+"%";
 }
 
-async function addRFQ(){
+async function saveRFQ(){
+
   const product=value("rProduct").trim();
 
   if(!product){
     alert("Product is required.");
     return;
   }
+
+  const buyerId=value("rBuyer")
+    ? Number(value("rBuyer"))
+    : null;
+
+  const supplierId=value("rSupplier")
+    ? Number(value("rSupplier"))
+    : null;
+
+  const buyer=buyers.find(b=>b.id===buyerId);
+
+  const c=getRFQCalculation();
+
+  const payload={
+
+    buyer_id:buyerId,
+    buyer_name:buyer?.company||"",
+    product,
+    quantity:c.qty,
+    supplier_id:supplierId,
+    currency:value("rCurrency"),
+
+    purchase_cost:c.unitCost,
+    sales_price:c.unitSales,
+
+    unit_cost:c.unitCost,
+    unit_sales_price:c.unitSales,
+
+    total_cost:c.totalCost,
+    total_sales:c.totalSales,
+
+    status:value("rStatus"),
+    notes:value("rNotes")
+  };
+
+
+  let result;
+
+
+  if(editingRFQId){
+
+    result=await client
+      .from("rfqs")
+      .update(payload)
+      .eq("id",editingRFQId);
+
+  }else{
+
+    payload.rfq_no=nextRFQNumber();
+
+    result=await client
+      .from("rfqs")
+      .insert(payload);
+
+  }
+
+
+  if(result.error){
+    alert(result.error.message);
+    return;
+  }
+
+
+  cancelRFQEdit();
+
+  await loadAll();
+}
 
   const buyerId=value("rBuyer")?Number(value("rBuyer")):null;
   const supplierId=value("rSupplier")?Number(value("rSupplier")):null;
