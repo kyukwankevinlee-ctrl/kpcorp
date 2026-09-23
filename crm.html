@@ -388,6 +388,31 @@ td{
   font-weight:700;
 }
 
+
+/* V4 MANAGEMENT CENTER */
+.management-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:22px}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.mini-kpi{border:1px solid var(--border);background:#f8fafc;border-radius:12px;padding:15px}
+.mini-kpi span{font-size:11px;font-weight:700;color:var(--muted);display:block}
+.mini-kpi strong{font-size:22px;color:var(--navy);display:block;margin-top:6px}
+.alert-list{display:grid;gap:9px}
+.alert-item{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px;border:1px solid var(--border);border-radius:10px;background:#fff}
+.alert-item.overdue{border-left:4px solid var(--red)}
+.alert-item.today{border-left:4px solid var(--orange)}
+.alert-item.upcoming{border-left:4px solid var(--blue)}
+.bar-list{display:grid;gap:11px}
+.bar-row{display:grid;grid-template-columns:minmax(110px,1fr) 3fr auto;gap:10px;align-items:center;font-size:12px}
+.bar-track{height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden}
+.bar-fill{height:100%;background:var(--blue);border-radius:999px}
+.tool-row{display:flex;gap:8px;flex-wrap:wrap}
+.tool-btn{border:0;padding:10px 13px;border-radius:9px;font-weight:700;cursor:pointer;background:#eef2ff;color:var(--blue)}
+.copy-btn{background:#f3e8ff;color:#7e22ce}
+.ship-due{color:var(--orange);font-weight:700}
+.ship-overdue{color:var(--red);font-weight:700}
+.section-note{color:var(--muted);font-size:12px;margin:-8px 0 16px}
+@media(max-width:900px){.management-grid,.kpi-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:650px){.management-grid,.kpi-grid{grid-template-columns:1fr}.bar-row{grid-template-columns:90px 1fr auto}}
+
 /* RESPONSIVE */
 
 @media(max-width:1100px){
@@ -443,7 +468,7 @@ td{
   <div class="brand">
     <img src="images/logo.png" alt="KP Holdings">
     <div>
-      <h2>KP Holdings CRM</h2>
+      <h2>KP Holdings CRM V4</h2>
       <small>Global Industrial Sourcing</small>
     </div>
   </div>
@@ -480,6 +505,7 @@ td{
   <button class="tab" onclick="showTab('suppliers',this)">Suppliers</button>
   <button class="tab" onclick="showTab('rfqs',this)">RFQ / Quotation</button>
   <button class="tab" onclick="showTab('orders',this)">Purchase Orders</button>
+  <button class="tab" onclick="showTab('management',this)">Management Center</button>
 </div>
 
 
@@ -845,6 +871,63 @@ td{
 </div>
 
 </div>
+</div>
+
+
+<!-- V4 MANAGEMENT CENTER -->
+<div id="management" class="panel">
+  <div class="box">
+    <div class="toolbar">
+      <div>
+        <h2>Management Center</h2>
+        <p class="section-note">Sales pipeline, follow-ups, shipments and management analytics in one place.</p>
+      </div>
+      <div class="tool-row">
+        <button class="tool-btn" onclick="downloadBackup()">Download Full Backup</button>
+        <button class="tool-btn" onclick="exportAllCSV()">Export All CSV</button>
+      </div>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="mini-kpi"><span>WON SALES</span><strong id="mgWonSales">$0</strong></div>
+      <div class="mini-kpi"><span>WON PROFIT</span><strong id="mgWonProfit">$0</strong></div>
+      <div class="mini-kpi"><span>RFQ CONVERSION</span><strong id="mgConversion">0%</strong></div>
+      <div class="mini-kpi"><span>FOLLOW-UPS DUE</span><strong id="mgFollowDue">0</strong></div>
+    </div>
+  </div>
+
+  <div class="management-grid">
+    <div class="box">
+      <h2>Follow-up Center</h2>
+      <div id="followupCenter" class="alert-list"></div>
+    </div>
+    <div class="box">
+      <h2>Shipment Watch</h2>
+      <div id="shipmentWatch" class="alert-list"></div>
+    </div>
+  </div>
+
+  <div class="management-grid">
+    <div class="box">
+      <h2>Pipeline by Customer</h2>
+      <div id="customerBars" class="bar-list"></div>
+    </div>
+    <div class="box">
+      <h2>Pipeline by Country</h2>
+      <div id="countryBars" class="bar-list"></div>
+    </div>
+  </div>
+
+  <div class="management-grid">
+    <div class="box">
+      <h2>RFQ Status Mix</h2>
+      <div id="statusBars" class="bar-list"></div>
+    </div>
+    <div class="box">
+      <h2>Recent Activity</h2>
+      <div id="recentActivity" class="alert-list"></div>
+    </div>
+  </div>
 </div>
 
 </div>
@@ -1432,6 +1515,7 @@ function renderAll(){
   renderSelectors();
   renderFilters();
   renderDashboard();
+  renderManagement();
 }
 
 function renderBuyers(){
@@ -1524,6 +1608,7 @@ function renderRFQs(){
         <div class="row-actions">
           <button class="edit-btn" onclick="editRFQ(${r.id})">Edit</button>
           <button class="quote-btn" onclick="printQuotation(${r.id})">Quotation</button>
+          <button class="copy-btn edit-btn" onclick="copyQuotationEmail(${r.id})">Email Draft</button>
           <button class="po-btn" onclick="createPOFromRFQ(${r.id})">Create PO</button>
           <button class="delete-btn" onclick="deleteRFQ(${r.id})">Delete</button>
         </div>
@@ -1563,7 +1648,7 @@ function renderPOs(){
         <td>${r?esc(r.rfq_no):""}</td>
         <td>${money(p.amount,p.currency)}</td>
         <td>${esc(p.order_date)}</td>
-        <td>${esc(p.shipment_date)}</td>
+        <td class="${shipmentClass(p.shipment_date,p.status)}">${esc(p.shipment_date)}</td>
         <td>${esc(p.payment_terms)}</td>
         <td><span class="badge">${esc(p.status)}</span></td>
         <td>
@@ -1682,6 +1767,181 @@ function printQuotation(id){
   w.document.write(html); w.document.close();
 }
 
+
+/* V4 MANAGEMENT & AUTOMATION */
+function isoToday(){
+  const d=new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+}
+
+function daysFromToday(date){
+  if(!date)return null;
+  const a=new Date(isoToday()+"T00:00:00");
+  const b=new Date(date+"T00:00:00");
+  return Math.round((b-a)/86400000);
+}
+
+function shipmentClass(date,status){
+  if(!date || status==="Completed")return "";
+  const d=daysFromToday(date);
+  if(d<0)return "ship-overdue";
+  if(d<=14)return "ship-due";
+  return "";
+}
+
+function fmtUSD(n){
+  return "$"+Number(n||0).toLocaleString("en-US",{maximumFractionDigits:2});
+}
+
+function aggregate(items,keyFn,valueFn){
+  const m={};
+  items.forEach(x=>{
+    const k=keyFn(x)||"Unspecified";
+    m[k]=(m[k]||0)+Number(valueFn(x)||0);
+  });
+  return Object.entries(m).sort((a,b)=>b[1]-a[1]);
+}
+
+function renderBars(id,rows,valueFormatter=v=>fmtUSD(v)){
+  const el=document.getElementById(id); if(!el)return;
+  if(!rows.length){el.innerHTML='<div class="empty">No data yet.</div>';return;}
+  const max=Math.max(...rows.map(x=>x[1]),1);
+  el.innerHTML=rows.slice(0,8).map(([label,val])=>`
+    <div class="bar-row">
+      <div title="${esc(label)}">${esc(label)}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.max(3,(val/max)*100)}%"></div></div>
+      <strong>${valueFormatter(val)}</strong>
+    </div>`).join("");
+}
+
+function renderManagement(){
+  const won=rfqs.filter(r=>r.status==="Won");
+  const wonSales=won.reduce((a,r)=>a+Number(r.total_sales||0),0);
+  const wonProfit=won.reduce((a,r)=>a+Number(r.gross_profit ?? (Number(r.total_sales||0)-Number(r.total_cost||0))),0);
+  const closed=rfqs.filter(r=>["Won","Lost"].includes(r.status));
+  const conversion=closed.length ? (won.length/closed.length)*100 : 0;
+
+  const today=isoToday();
+  const dueBuyers=buyers.filter(b=>b.next_follow_up && b.next_follow_up<=today && b.status!=="Inactive");
+  setText("mgWonSales",fmtUSD(wonSales));
+  setText("mgWonProfit",fmtUSD(wonProfit));
+  setText("mgConversion",conversion.toFixed(1)+"%");
+  setText("mgFollowDue",String(dueBuyers.length));
+
+  const f=document.getElementById("followupCenter");
+  if(f){
+    const rows=buyers.filter(b=>b.next_follow_up && b.status!=="Inactive")
+      .sort((a,b)=>String(a.next_follow_up).localeCompare(String(b.next_follow_up))).slice(0,10);
+    f.innerHTML=rows.length?rows.map(b=>{
+      const d=daysFromToday(b.next_follow_up);
+      const cls=d<0?"overdue":d===0?"today":"upcoming";
+      const label=d<0?`${Math.abs(d)} day(s) overdue`:d===0?"Due today":`In ${d} day(s)`;
+      return `<div class="alert-item ${cls}">
+        <div><strong>${esc(b.company)}</strong><br><small>${esc(b.contact_person||"")} · ${esc(b.country||"")}</small></div>
+        <div style="text-align:right"><strong>${esc(b.next_follow_up)}</strong><br><small>${label}</small>
+        <button class="edit-btn" onclick="copyFollowupEmail(${b.id})">Email</button></div>
+      </div>`;
+    }).join(""):'<div class="empty">No scheduled follow-ups.</div>';
+  }
+
+  const sw=document.getElementById("shipmentWatch");
+  if(sw){
+    const rows=orders.filter(p=>p.shipment_date && p.status!=="Completed")
+      .sort((a,b)=>String(a.shipment_date).localeCompare(String(b.shipment_date))).slice(0,10);
+    sw.innerHTML=rows.length?rows.map(p=>{
+      const d=daysFromToday(p.shipment_date);
+      const cls=d<0?"overdue":d<=7?"today":"upcoming";
+      const label=d<0?`${Math.abs(d)} day(s) overdue`:d===0?"Ships today":`In ${d} day(s)`;
+      return `<div class="alert-item ${cls}">
+        <div><strong>${esc(p.po_no)}</strong><br><small>${esc(p.customer)} · ${esc(p.status)}</small></div>
+        <div style="text-align:right"><strong>${esc(p.shipment_date)}</strong><br><small>${label}</small></div>
+      </div>`;
+    }).join(""):'<div class="empty">No upcoming shipments.</div>';
+  }
+
+  const active=rfqs.filter(r=>r.status!=="Lost");
+  renderBars("customerBars",aggregate(active,r=>r.buyer_name,r=>r.total_sales));
+  const buyerCountry=new Map(buyers.map(b=>[b.id,b.country||"Unspecified"]));
+  renderBars("countryBars",aggregate(active,r=>buyerCountry.get(r.buyer_id)||"Unspecified",r=>r.total_sales));
+  renderBars("statusBars",aggregate(rfqs,r=>r.status,()=>1),v=>String(v));
+
+  const recent=[
+    ...rfqs.map(r=>({date:r.created_at||"",title:r.rfq_no||"RFQ",sub:`${r.buyer_name||""} · ${r.status||""}`})),
+    ...orders.map(p=>({date:p.created_at||"",title:p.po_no||"PO",sub:`${p.customer||""} · ${p.status||""}`}))
+  ].sort((a,b)=>String(b.date).localeCompare(String(a.date))).slice(0,8);
+  const ra=document.getElementById("recentActivity");
+  if(ra)ra.innerHTML=recent.length?recent.map(x=>`<div class="alert-item upcoming"><div><strong>${esc(x.title)}</strong><br><small>${esc(x.sub)}</small></div><small>${esc(String(x.date).slice(0,10))}</small></div>`).join(""):'<div class="empty">No activity yet.</div>';
+}
+
+function setText(id,text){
+  const el=document.getElementById(id); if(el)el.textContent=text;
+}
+
+async function copyText(text){
+  try{await navigator.clipboard.writeText(text);alert("Copied to clipboard.");}
+  catch(e){
+    const t=document.createElement("textarea");t.value=text;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove();alert("Copied to clipboard.");
+  }
+}
+
+function copyQuotationEmail(id){
+  const r=rfqs.find(x=>x.id===id); if(!r)return;
+  const b=buyers.find(x=>x.id===r.buyer_id);
+  const contact=b?.contact_person?` ${b.contact_person}`:"";
+  const text=`Subject: Quotation ${r.rfq_no} – ${r.product}
+
+Dear${contact},
+
+Thank you for your inquiry.
+
+Please find our quotation ${r.rfq_no} for ${r.product}.
+Quantity: ${num(r.quantity)}
+Unit Price: ${money(r.unit_sales_price??r.sales_price,r.currency)}
+Total Amount: ${money(r.total_sales,r.currency)}
+
+Please let us know if you need any clarification or would like us to proceed with the next step.
+
+Best regards,
+KP Holdings
+Global Industrial Sourcing`;
+  copyText(text);
+}
+
+function copyFollowupEmail(id){
+  const b=buyers.find(x=>x.id===id); if(!b)return;
+  const contact=b.contact_person?` ${b.contact_person}`:"";
+  const text=`Subject: Follow-up – KP Holdings
+
+Dear${contact},
+
+I hope you are doing well.
+
+I am following up regarding our recent discussion${b.category?` about ${b.category}`:""}. Please let me know if there are any updates or if you need any additional information from our side.
+
+Best regards,
+KP Holdings
+Global Industrial Sourcing`;
+  copyText(text);
+}
+
+function downloadBackup(){
+  const payload={
+    version:"KP Holdings CRM V4",
+    exported_at:new Date().toISOString(),
+    buyers,suppliers,rfqs,purchase_orders:orders
+  };
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=`kp_crm_backup_${isoToday()}.json`;
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+
+function exportAllCSV(){
+  ["buyers","suppliers","rfqs","orders"].forEach((x,i)=>setTimeout(()=>exportCSV(x),i*250));
+}
+
 /* UI */
 
 function showTab(id,button){
@@ -1694,6 +1954,7 @@ function showTab(id,button){
   document.getElementById(id).classList.add("active");
 
   if(button)button.classList.add("active");
+  if(id==="management")renderManagement();
 }
 
 
