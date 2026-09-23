@@ -2,24 +2,25 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>KP Holdings | Business Control Center</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 :root{
-  --navy:#071A39;
-  --blue:#2563EB;
-  --bg:#F4F7FB;
+  --navy:#071a39;
+  --navy2:#0d2a55;
+  --blue:#2563eb;
+  --bg:#f4f7fb;
   --white:#fff;
-  --text:#1F2937;
-  --muted:#64748B;
-  --border:#E2E8F0;
-  --green:#16A34A;
-  --red:#DC2626;
-  --orange:#EA580C;
+  --text:#1f2937;
+  --muted:#64748b;
+  --border:#e2e8f0;
+  --green:#16a34a;
+  --red:#dc2626;
+  --orange:#ea580c;
+  --yellow:#ca8a04;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -30,6 +31,8 @@ body{
   color:var(--text);
 }
 
+button,input,select,textarea{font:inherit}
+
 /* LOGIN */
 
 #loginScreen{
@@ -38,47 +41,35 @@ body{
   align-items:center;
   justify-content:center;
   padding:25px;
-  background:
-    radial-gradient(circle at top right,#163c72 0,#071A39 45%,#031025 100%);
+  background:radial-gradient(circle at top right,#163c72,#071a39 48%,#031025);
 }
 
 .login-card{
   width:100%;
   max-width:430px;
-  background:white;
-  padding:45px;
+  background:#fff;
+  padding:44px;
   border-radius:24px;
   box-shadow:0 30px 80px rgba(0,0,0,.3);
 }
 
-.login-brand{
-  text-align:center;
-  margin-bottom:35px;
-}
+.login-brand{text-align:center;margin-bottom:32px}
 
 .login-brand img{
-  max-height:65px;
+  max-height:62px;
   max-width:220px;
-  margin-bottom:20px;
+  margin-bottom:18px;
 }
 
-.login-brand h1{
-  color:var(--navy);
-  font-size:26px;
-}
-
-.login-brand p{
-  color:var(--muted);
-  margin-top:7px;
-}
+.login-brand h1{color:var(--navy);font-size:26px}
+.login-brand p{color:var(--muted);margin-top:7px}
 
 .login-card input{
   width:100%;
   padding:15px;
-  margin-bottom:14px;
+  margin-bottom:13px;
   border:1px solid var(--border);
   border-radius:10px;
-  font-size:15px;
 }
 
 .login-btn{
@@ -86,15 +77,14 @@ body{
   border:0;
   padding:15px;
   background:var(--blue);
-  color:white;
+  color:#fff;
   border-radius:10px;
-  font-weight:bold;
+  font-weight:700;
   cursor:pointer;
-  font-size:15px;
 }
 
 #loginMessage{
-  margin-top:15px;
+  margin-top:14px;
   text-align:center;
   color:var(--red);
   font-size:13px;
@@ -105,15 +95,16 @@ body{
 #app{display:none}
 
 header{
-  background:white;
-  border-bottom:1px solid var(--border);
-  padding:14px 4%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
   position:sticky;
   top:0;
   z-index:50;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  padding:13px 4%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
 }
 
 .brand{
@@ -124,81 +115,57 @@ header{
 
 .brand img{
   height:44px;
-  max-width:180px;
+  max-width:175px;
   object-fit:contain;
 }
 
-.brand h2{
-  color:var(--navy);
-  font-size:19px;
-}
-
+.brand h2{color:var(--navy);font-size:19px}
 .brand small{color:var(--muted)}
 
-.header-actions{
-  display:flex;
-  gap:10px;
-}
+.header-actions{display:flex;gap:9px}
 
 .header-btn{
   border:0;
-  padding:10px 15px;
+  padding:10px 14px;
   border-radius:9px;
+  font-weight:700;
   cursor:pointer;
-  font-weight:bold;
 }
 
-.website-btn{
-  background:#EEF2FF;
-  color:var(--blue);
-}
-
-.logout-btn{
-  background:#FEE2E2;
-  color:var(--red);
-}
+.website-btn{background:#eef2ff;color:var(--blue)}
+.logout-btn{background:#fee2e2;color:var(--red)}
 
 .container{
-  max-width:1450px;
+  max-width:1500px;
   margin:auto;
-  padding:35px 25px 80px;
+  padding:34px 24px 80px;
 }
 
-.title{
-  margin-bottom:28px;
-}
+.page-title{margin-bottom:25px}
+.page-title h1{font-size:30px;color:var(--navy)}
+.page-title p{margin-top:6px;color:var(--muted)}
 
-.title h1{
-  color:var(--navy);
-  font-size:31px;
-}
-
-.title p{
-  color:var(--muted);
-  margin-top:5px;
-}
-
-/* STATS */
+/* DASHBOARD */
 
 .stats{
   display:grid;
   grid-template-columns:repeat(6,1fr);
-  gap:15px;
-  margin-bottom:28px;
+  gap:14px;
+  margin-bottom:25px;
 }
 
 .stat{
-  background:white;
-  border-radius:16px;
+  background:#fff;
   padding:21px;
+  border-radius:16px;
   box-shadow:0 5px 18px rgba(0,0,0,.045);
 }
 
 .stat p{
   font-size:11px;
-  font-weight:bold;
-  letter-spacing:.7px;
   color:var(--muted);
+  font-weight:700;
+  letter-spacing:.7px;
 }
 
 .stat h2{
@@ -215,23 +182,20 @@ header{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
-  margin-bottom:22px;
+  margin-bottom:21px;
 }
 
 .tab{
   border:0;
-  background:white;
+  background:#fff;
   color:var(--navy);
-  padding:12px 19px;
+  padding:12px 18px;
   border-radius:9px;
-  font-weight:bold;
+  font-weight:700;
   cursor:pointer;
 }
 
-.tab.active{
-  background:var(--navy);
-  color:white;
-}
+.tab.active{background:var(--navy);color:#fff}
 
 .panel{display:none}
 .panel.active{display:block}
@@ -239,17 +203,14 @@ header{
 /* BOX */
 
 .box{
-  background:white;
+  background:#fff;
   border-radius:17px;
-  padding:25px;
+  padding:24px;
   margin-bottom:22px;
   box-shadow:0 5px 18px rgba(0,0,0,.045);
 }
 
-.box h2{
-  color:var(--navy);
-  margin-bottom:18px;
-}
+.box h2{color:var(--navy);margin-bottom:17px}
 
 .form-grid{
   display:grid;
@@ -257,46 +218,98 @@ header{
   gap:13px;
 }
 
+.field label{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:700;
+  margin:0 0 6px 3px;
+}
+
 input,select,textarea{
   width:100%;
   padding:12px;
   border:1px solid var(--border);
   border-radius:9px;
-  background:white;
-  font-size:14px;
+  background:#fff;
+  color:var(--text);
 }
 
 textarea{
-  min-height:90px;
+  min-height:85px;
   resize:vertical;
+  margin-top:13px;
 }
 
-.primary{
-  border:0;
-  background:var(--blue);
-  color:white;
-  padding:12px 19px;
-  border-radius:9px;
-  font-weight:bold;
-  cursor:pointer;
+.action-row{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
   margin-top:14px;
 }
 
-.primary:hover{background:#1D4ED8}
+.primary,.secondary{
+  border:0;
+  padding:12px 18px;
+  border-radius:9px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.primary{background:var(--blue);color:#fff}
+.secondary{background:#e2e8f0;color:var(--navy)}
 
 .toolbar{
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  gap:15px;
-  margin-bottom:17px;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:16px;
 }
 
 .toolbar h2{margin:0}
 
-.toolbar input{
-  max-width:340px;
+.filters{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
 }
+
+.filters input{width:250px}
+.filters select{width:150px}
+
+/* RFQ CALCULATOR */
+
+.calculator{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-top:16px;
+}
+
+.calc-card{
+  padding:15px;
+  border-radius:12px;
+  background:#f8fafc;
+  border:1px solid var(--border);
+}
+
+.calc-card span{
+  display:block;
+  font-size:11px;
+  font-weight:700;
+  color:var(--muted);
+}
+
+.calc-card strong{
+  display:block;
+  margin-top:6px;
+  font-size:20px;
+  color:var(--navy);
+}
+
+.calc-card.profit strong{color:var(--green)}
 
 /* TABLE */
 
@@ -305,46 +318,54 @@ textarea{
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:950px;
+  min-width:1050px;
 }
 
 th{
   background:var(--navy);
-  color:white;
-  text-align:left;
+  color:#fff;
   padding:12px;
+  text-align:left;
   font-size:12px;
+  white-space:nowrap;
 }
 
 td{
   padding:12px;
   border-bottom:1px solid var(--border);
   font-size:13px;
+  vertical-align:middle;
 }
 
-.delete-btn{
+.row-actions{
+  display:flex;
+  gap:6px;
+}
+
+.edit-btn,.delete-btn,.po-btn{
   border:0;
-  background:#FEE2E2;
-  color:var(--red);
   padding:7px 10px;
   border-radius:7px;
   cursor:pointer;
+  font-size:12px;
 }
 
-.profit{
-  color:var(--green);
-  font-weight:bold;
-}
+.edit-btn{background:#dbeafe;color:#1d4ed8}
+.delete-btn{background:#fee2e2;color:var(--red)}
+.po-btn{background:#dcfce7;color:#15803d}
 
 .badge{
   display:inline-block;
   padding:5px 9px;
   border-radius:20px;
-  background:#EFF6FF;
+  background:#eff6ff;
   color:var(--blue);
   font-size:11px;
-  font-weight:bold;
+  font-weight:700;
+  white-space:nowrap;
 }
+
+.profit-text{color:var(--green);font-weight:700}
 
 .empty{
   text-align:center;
@@ -355,27 +376,33 @@ td{
 .loading{
   position:fixed;
   inset:0;
-  background:rgba(255,255,255,.75);
+  background:rgba(255,255,255,.78);
   display:none;
   align-items:center;
   justify-content:center;
   z-index:999;
-  font-weight:bold;
   color:var(--navy);
+  font-weight:700;
 }
+
+/* RESPONSIVE */
 
 @media(max-width:1100px){
   .stats{grid-template-columns:repeat(3,1fr)}
   .form-grid{grid-template-columns:repeat(2,1fr)}
+  .calculator{grid-template-columns:repeat(2,1fr)}
 }
 
 @media(max-width:650px){
   .stats{grid-template-columns:repeat(2,1fr)}
-  .form-grid{grid-template-columns:1fr}
+  .form-grid,.calculator{grid-template-columns:1fr}
   .brand h2,.brand small{display:none}
-  .container{padding:25px 15px 60px}
-  .toolbar{flex-direction:column;align-items:stretch}
-  .toolbar input{max-width:none}
+  .brand img{height:36px}
+  .container{padding:24px 14px 60px}
+  .toolbar{align-items:stretch;flex-direction:column}
+  .filters{justify-content:flex-start}
+  .filters input,.filters select{width:100%}
+  .header-btn{padding:9px 10px}
 }
 </style>
 </head>
@@ -384,131 +411,72 @@ td{
 
 <div class="loading" id="loading">Loading KP Holdings CRM...</div>
 
-<!-- LOGIN -->
-
 <section id="loginScreen">
+<div class="login-card">
 
-  <div class="login-card">
-
-    <div class="login-brand">
-      <img src="images/logo.png" alt="KP Holdings">
-      <h1>Business Control Center</h1>
-      <p>Authorized Access Only</p>
-    </div>
-
-    <input
-      type="email"
-      id="loginEmail"
-      value="info@kpcorp.co.kr"
-      placeholder="Email">
-
-    <input
-      type="password"
-      id="loginPassword"
-      placeholder="Password"
-      onkeydown="if(event.key==='Enter') signIn()">
-
-    <button class="login-btn" onclick="signIn()">
-      SIGN IN
-    </button>
-
-    <div id="loginMessage"></div>
-
+  <div class="login-brand">
+    <img src="images/logo.png" alt="KP Holdings">
+    <h1>Business Control Center</h1>
+    <p>Authorized Access Only</p>
   </div>
 
+  <input id="loginEmail" type="email"
+         value="info@kpcorp.co.kr" placeholder="Email">
+
+  <input id="loginPassword" type="password"
+         placeholder="Password"
+         onkeydown="if(event.key==='Enter')signIn()">
+
+  <button class="login-btn" onclick="signIn()">SIGN IN</button>
+  <div id="loginMessage"></div>
+
+</div>
 </section>
 
-<!-- CRM -->
 
 <section id="app">
 
 <header>
-
   <div class="brand">
-
     <img src="images/logo.png" alt="KP Holdings">
-
     <div>
       <h2>KP Holdings CRM</h2>
       <small>Global Industrial Sourcing</small>
     </div>
-
   </div>
 
   <div class="header-actions">
-
     <button class="header-btn website-btn"
-      onclick="window.location.href='index.html'">
-      Website
-    </button>
+      onclick="location.href='index.html'">Website</button>
 
     <button class="header-btn logout-btn"
-      onclick="signOut()">
-      Logout
-    </button>
-
+      onclick="signOut()">Logout</button>
   </div>
-
 </header>
 
 
 <div class="container">
 
-<div class="title">
+<div class="page-title">
   <h1>Business Control Center</h1>
   <p id="welcomeUser"></p>
 </div>
 
-
 <div class="stats">
-
-  <div class="stat">
-    <p>BUYERS</p>
-    <h2 id="buyerCount">0</h2>
-  </div>
-
-  <div class="stat">
-    <p>SUPPLIERS</p>
-    <h2 id="supplierCount">0</h2>
-  </div>
-
-  <div class="stat">
-    <p>OPEN RFQs</p>
-    <h2 id="rfqCount">0</h2>
-  </div>
-
-  <div class="stat">
-    <p>ACTIVE POs</p>
-    <h2 id="poCount">0</h2>
-  </div>
-
-  <div class="stat money">
-    <p>PIPELINE</p>
-    <h2 id="pipeline">$0</h2>
-  </div>
-
-  <div class="stat money">
-    <p>GROSS PROFIT</p>
-    <h2 id="grossProfit">$0</h2>
-  </div>
-
+  <div class="stat"><p>BUYERS</p><h2 id="buyerCount">0</h2></div>
+  <div class="stat"><p>SUPPLIERS</p><h2 id="supplierCount">0</h2></div>
+  <div class="stat"><p>OPEN RFQS</p><h2 id="rfqCount">0</h2></div>
+  <div class="stat"><p>ACTIVE POS</p><h2 id="poCount">0</h2></div>
+  <div class="stat money"><p>PIPELINE</p><h2 id="pipeline">$0</h2></div>
+  <div class="stat money"><p>GROSS PROFIT</p><h2 id="grossProfit">$0</h2></div>
 </div>
 
 
 <div class="tabs">
-
-  <button class="tab active"
-    onclick="showTab('buyers',this)">Buyers</button>
-
-  <button class="tab"
-    onclick="showTab('suppliers',this)">Suppliers</button>
-
-  <button class="tab"
-    onclick="showTab('rfqs',this)">RFQ / Quotation</button>
-
-  <button class="tab"
-    onclick="showTab('orders',this)">Purchase Orders</button>
-
+  <button class="tab active" onclick="showTab('buyers',this)">Buyers</button>
+  <button class="tab" onclick="showTab('suppliers',this)">Suppliers</button>
+  <button class="tab" onclick="showTab('rfqs',this)">RFQ / Quotation</button>
+  <button class="tab" onclick="showTab('orders',this)">Purchase Orders</button>
 </div>
 
 
@@ -517,68 +485,75 @@ td{
 <div id="buyers" class="panel active">
 
 <div class="box">
-
-<h2>Add Buyer</h2>
+<h2 id="buyerFormTitle">Add Buyer</h2>
 
 <div class="form-grid">
+  <input id="bCompany" placeholder="Company *">
+  <input id="bCountry" placeholder="Country">
+  <input id="bContact" placeholder="Contact Person">
+  <input id="bEmail" type="email" placeholder="Email">
+  <input id="bPhone" placeholder="Phone">
+  <input id="bCategory" placeholder="Product / Industry">
 
-<input id="bCompany" placeholder="Company *">
-<input id="bCountry" placeholder="Country">
-<input id="bContact" placeholder="Contact Person">
-<input id="bEmail" type="email" placeholder="Email">
-<input id="bPhone" placeholder="Phone">
-<input id="bCategory" placeholder="Product / Industry">
+  <select id="bStatus">
+    <option>Prospect</option>
+    <option>Warm</option>
+    <option>Hot</option>
+    <option>Existing</option>
+    <option>Inactive</option>
+  </select>
 
-<select id="bStatus">
-<option>Prospect</option>
-<option>Warm</option>
-<option>Hot</option>
-<option>Existing</option>
-</select>
-
-<input id="bFollow" type="date">
-
+  <input id="bFollow" type="date">
 </div>
 
 <textarea id="bNotes" placeholder="Notes"></textarea>
 
-<button class="primary" onclick="addBuyer()">
-+ Add Buyer
-</button>
-
+<div class="action-row">
+  <button id="buyerSaveBtn" class="primary" onclick="saveBuyer()">+ Add Buyer</button>
+  <button id="buyerCancelBtn" class="secondary"
+          onclick="cancelBuyerEdit()" style="display:none">Cancel Edit</button>
+</div>
 </div>
 
 
 <div class="box">
 
 <div class="toolbar">
-<h2>Buyer Database</h2>
-<input id="buyerSearch"
-       placeholder="Search buyers..."
-       oninput="renderBuyers()">
+  <h2>Buyer Database</h2>
+
+  <div class="filters">
+    <input id="buyerSearch"
+      placeholder="Search buyers..."
+      oninput="renderBuyers()">
+
+    <select id="buyerCountryFilter" onchange="renderBuyers()">
+      <option value="">All Countries</option>
+    </select>
+
+    <select id="buyerStatusFilter" onchange="renderBuyers()">
+      <option value="">All Status</option>
+      <option>Prospect</option>
+      <option>Warm</option>
+      <option>Hot</option>
+      <option>Existing</option>
+      <option>Inactive</option>
+    </select>
+  </div>
 </div>
 
 <div class="table-wrap">
-
 <table>
 <thead>
 <tr>
-<th>Company</th>
-<th>Country</th>
-<th>Contact</th>
-<th>Email</th>
-<th>Category</th>
-<th>Status</th>
-<th>Next Follow-up</th>
-<th></th>
+<th>Company</th><th>Country</th><th>Contact</th>
+<th>Email</th><th>Category</th><th>Status</th>
+<th>Next Follow-up</th><th>Actions</th>
 </tr>
 </thead>
-
 <tbody id="buyerTable"></tbody>
-
 </table>
-
 </div>
+
 </div>
 </div>
 
@@ -588,64 +563,67 @@ td{
 <div id="suppliers" class="panel">
 
 <div class="box">
-
-<h2>Add Supplier</h2>
+<h2 id="supplierFormTitle">Add Supplier</h2>
 
 <div class="form-grid">
+  <input id="sCompany" placeholder="Manufacturer *">
+  <input id="sCountry" placeholder="Country">
+  <input id="sContact" placeholder="Contact Person">
+  <input id="sEmail" type="email" placeholder="Email">
+  <input id="sPhone" placeholder="Phone">
+  <input id="sWebsite" placeholder="Website">
+  <input id="sProduct" placeholder="Main Product">
+  <input id="sMOQ" placeholder="MOQ">
+  <input id="sLead" placeholder="Lead Time">
 
-<input id="sCompany" placeholder="Manufacturer *">
-<input id="sCountry" placeholder="Country">
-<input id="sContact" placeholder="Contact Person">
-<input id="sEmail" type="email" placeholder="Email">
-<input id="sPhone" placeholder="Phone">
-<input id="sWebsite" placeholder="Website">
-<input id="sProduct" placeholder="Main Product">
-<input id="sMOQ" placeholder="MOQ">
-<input id="sLead" placeholder="Lead Time">
-
-<select id="sOEM">
-<option value="true">OEM Yes</option>
-<option value="false">OEM No</option>
-</select>
-
+  <select id="sOEM">
+    <option value="true">OEM Yes</option>
+    <option value="false">OEM No</option>
+  </select>
 </div>
 
 <textarea id="sNotes" placeholder="Notes"></textarea>
 
-<button class="primary" onclick="addSupplier()">
-+ Add Supplier
-</button>
+<div class="action-row">
+  <button id="supplierSaveBtn" class="primary"
+          onclick="saveSupplier()">+ Add Supplier</button>
 
+  <button id="supplierCancelBtn" class="secondary"
+          onclick="cancelSupplierEdit()" style="display:none">Cancel Edit</button>
+</div>
 </div>
 
 
 <div class="box">
 
-<h2>Supplier Database</h2>
+<div class="toolbar">
+  <h2>Supplier Database</h2>
+
+  <div class="filters">
+    <input id="supplierSearch"
+           placeholder="Search suppliers..."
+           oninput="renderSuppliers()">
+
+    <select id="supplierCountryFilter"
+            onchange="renderSuppliers()">
+      <option value="">All Countries</option>
+    </select>
+  </div>
+</div>
 
 <div class="table-wrap">
-
 <table>
-
 <thead>
 <tr>
-<th>Manufacturer</th>
-<th>Country</th>
-<th>Product</th>
-<th>Contact</th>
-<th>Email</th>
-<th>MOQ</th>
-<th>Lead Time</th>
-<th>OEM</th>
-<th></th>
+<th>Manufacturer</th><th>Country</th><th>Product</th>
+<th>Contact</th><th>Email</th><th>MOQ</th>
+<th>Lead Time</th><th>OEM</th><th>Actions</th>
 </tr>
 </thead>
-
 <tbody id="supplierTable"></tbody>
-
 </table>
-
 </div>
+
 </div>
 </div>
 
@@ -660,87 +638,115 @@ td{
 
 <div class="form-grid">
 
-<select id="rBuyer"></select>
+  <select id="rBuyer"></select>
 
-<input id="rProduct" placeholder="Product *">
+  <input id="rProduct" placeholder="Product *">
 
-<input id="rQuantity"
-       type="number"
-       step="any"
-       placeholder="Quantity">
+  <input id="rQuantity" type="number"
+         min="0" step="1" placeholder="Quantity"
+         oninput="calculateRFQ()">
 
-<select id="rSupplier"></select>
+  <select id="rSupplier"></select>
 
-<select id="rCurrency">
-<option>USD</option>
-<option>EUR</option>
-<option>KRW</option>
-<option>CNY</option>
-</select>
+  <select id="rCurrency" onchange="calculateRFQ()">
+    <option>USD</option>
+    <option>EUR</option>
+    <option>KRW</option>
+    <option>CNY</option>
+  </select>
 
-<input id="rCost"
-       type="number"
-       step="0.01"
-       placeholder="Purchase Cost">
+  <input id="rUnitCost" type="number"
+         min="0" step="0.01"
+         placeholder="Unit Cost"
+         oninput="calculateRFQ()">
 
-<input id="rSales"
-       type="number"
-       step="0.01"
-       placeholder="Sales Price">
+  <input id="rUnitSales" type="number"
+         min="0" step="0.01"
+         placeholder="Unit Sales Price"
+         oninput="calculateRFQ()">
 
-<select id="rStatus">
-<option>RFQ Received</option>
-<option>Supplier Quotation</option>
-<option>Quotation Submitted</option>
-<option>Negotiation</option>
-<option>Won</option>
-<option>Lost</option>
-</select>
+  <select id="rStatus">
+    <option>RFQ Received</option>
+    <option>Supplier Quotation</option>
+    <option>Quotation Submitted</option>
+    <option>Negotiation</option>
+    <option>Won</option>
+    <option>Lost</option>
+  </select>
 
+</div>
+
+<div class="calculator">
+  <div class="calc-card">
+    <span>TOTAL COST</span>
+    <strong id="calcCost">$0</strong>
+  </div>
+
+  <div class="calc-card">
+    <span>TOTAL SALES</span>
+    <strong id="calcSales">$0</strong>
+  </div>
+
+  <div class="calc-card profit">
+    <span>GROSS PROFIT</span>
+    <strong id="calcProfit">$0</strong>
+  </div>
+
+  <div class="calc-card">
+    <span>MARGIN</span>
+    <strong id="calcMargin">0.00%</strong>
+  </div>
 </div>
 
 <textarea id="rNotes" placeholder="Notes"></textarea>
 
-<button class="primary" onclick="addRFQ()">
-+ Create RFQ
-</button>
+<button class="primary" onclick="addRFQ()">+ Create RFQ</button>
 
 </div>
 
 
 <div class="box">
 
-<h2>RFQ Pipeline</h2>
+<div class="toolbar">
+  <h2>RFQ Pipeline</h2>
+
+  <div class="filters">
+    <input id="rfqSearch"
+           placeholder="Search RFQ..."
+           oninput="renderRFQs()">
+
+    <select id="rfqStatusFilter"
+            onchange="renderRFQs()">
+      <option value="">All Status</option>
+      <option>RFQ Received</option>
+      <option>Supplier Quotation</option>
+      <option>Quotation Submitted</option>
+      <option>Negotiation</option>
+      <option>Won</option>
+      <option>Lost</option>
+    </select>
+  </div>
+</div>
 
 <div class="table-wrap">
-
 <table>
-
 <thead>
 <tr>
-<th>RFQ No.</th>
-<th>Date</th>
-<th>Buyer</th>
-<th>Product</th>
-<th>Cost</th>
-<th>Sales</th>
-<th>Profit</th>
-<th>Margin</th>
-<th>Status</th>
-<th></th>
+<th>RFQ No.</th><th>Buyer</th><th>Product</th>
+<th>Qty</th><th>Unit Cost</th><th>Unit Sales</th>
+<th>Total Sales</th><th>Profit</th><th>Margin</th>
+<th>Status</th><th>Actions</th>
 </tr>
 </thead>
-
 <tbody id="rfqTable"></tbody>
-
 </table>
+</div>
 
 </div>
 </div>
-</div>
 
 
-<!-- PURCHASE ORDERS -->
+<!-- PO -->
 
 <div id="orders" class="panel">
 
@@ -750,75 +756,73 @@ td{
 
 <div class="form-grid">
 
-<input id="pNumber" placeholder="PO Number *">
+  <input id="pNumber" placeholder="Internal PO Number *">
+  <input id="pCustomerPO" placeholder="Customer PO Number">
+  <input id="pSupplierPO" placeholder="Supplier PO Number">
 
-<select id="pRFQ"></select>
+  <select id="pRFQ" onchange="fillPOFromRFQ()"></select>
 
-<input id="pCustomer" placeholder="Customer">
+  <input id="pCustomer" placeholder="Customer">
 
-<select id="pCurrency">
-<option>USD</option>
-<option>EUR</option>
-<option>KRW</option>
-<option>CNY</option>
-</select>
+  <select id="pCurrency">
+    <option>USD</option>
+    <option>EUR</option>
+    <option>KRW</option>
+    <option>CNY</option>
+  </select>
 
-<input id="pAmount"
-       type="number"
-       step="0.01"
-       placeholder="PO Amount">
+  <input id="pAmount" type="number"
+         min="0" step="0.01"
+         placeholder="PO Amount">
 
-<input id="pOrderDate" type="date">
-<input id="pShipment" type="date">
+  <input id="pOrderDate" type="date">
+  <input id="pShipment" type="date">
 
-<input id="pTerms" placeholder="Payment Terms">
+  <input id="pTerms" placeholder="Payment Terms">
 
-<select id="pStatus">
-<option>PO Received</option>
-<option>Production</option>
-<option>Ready to Ship</option>
-<option>Shipped</option>
-<option>Completed</option>
-</select>
+  <select id="pStatus">
+    <option>PO Received</option>
+    <option>Production</option>
+    <option>Ready to Ship</option>
+    <option>Shipped</option>
+    <option>Completed</option>
+  </select>
 
 </div>
 
 <textarea id="pNotes" placeholder="Notes"></textarea>
 
-<button class="primary" onclick="addPO()">
-+ Add Purchase Order
-</button>
+<button class="primary" onclick="addPO()">+ Add Purchase Order</button>
 
 </div>
 
 
 <div class="box">
 
-<h2>Purchase Orders</h2>
+<div class="toolbar">
+  <h2>Purchase Orders</h2>
+
+  <div class="filters">
+    <input id="poSearch"
+           placeholder="Search PO..."
+           oninput="renderPOs()">
+  </div>
+</div>
 
 <div class="table-wrap">
-
 <table>
-
 <thead>
 <tr>
-<th>PO</th>
-<th>Customer</th>
-<th>RFQ</th>
-<th>Amount</th>
-<th>Order Date</th>
-<th>Shipment</th>
-<th>Payment</th>
-<th>Status</th>
-<th></th>
+<th>PO</th><th>Customer PO</th><th>Supplier PO</th>
+<th>Customer</th><th>RFQ</th><th>Amount</th>
+<th>Order Date</th><th>Shipment</th>
+<th>Payment</th><th>Status</th><th>Actions</th>
 </tr>
 </thead>
-
 <tbody id="poTable"></tbody>
-
 </table>
-
 </div>
+
 </div>
 </div>
 
@@ -827,24 +831,13 @@ td{
 
 
 <script>
-
-/* ========================================
-   SUPABASE
-======================================== */
-
 const SUPABASE_URL =
 "https://jsvgwjqtehzhaiipzmat.supabase.co";
 
 const SUPABASE_KEY =
 "sb_publishable_OTkFjvR7OnMojy-PxcJdPQ_MgGiKFaG";
 
-const client =
-supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-
-
-/* ========================================
-   STATE
-======================================== */
+const client = supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
 let currentUser=null;
 let buyers=[];
@@ -852,174 +845,106 @@ let suppliers=[];
 let rfqs=[];
 let orders=[];
 
+let editingBuyerId=null;
+let editingSupplierId=null;
 
-/* ========================================
-   AUTH
-======================================== */
+
+/* AUTH */
 
 async function signIn(){
+  const email=value("loginEmail").trim();
+  const password=value("loginPassword");
+  const msg=document.getElementById("loginMessage");
 
-  const email =
-  document.getElementById("loginEmail").value.trim();
+  msg.textContent="Signing in...";
 
-  const password =
-  document.getElementById("loginPassword").value;
-
-  const message =
-  document.getElementById("loginMessage");
-
-  message.innerText="Signing in...";
-
-  const {data,error} =
-  await client.auth.signInWithPassword({
-    email,
-    password
+  const {data,error}=await client.auth.signInWithPassword({
+    email,password
   });
 
   if(error){
-    message.innerText=error.message;
+    msg.textContent=error.message;
     return;
   }
 
   currentUser=data.user;
-
-  message.innerText="";
-
+  msg.textContent="";
   await openCRM();
 }
 
-
 async function signOut(){
-
   await client.auth.signOut();
-
   currentUser=null;
-
   document.getElementById("app").style.display="none";
   document.getElementById("loginScreen").style.display="flex";
-
   document.getElementById("loginPassword").value="";
 }
 
-
-/* ========================================
-   STARTUP
-======================================== */
-
 async function init(){
-
-  const {data} =
-  await client.auth.getSession();
+  const {data}=await client.auth.getSession();
 
   if(data.session){
-
     currentUser=data.session.user;
     await openCRM();
-
   }else{
-
     document.getElementById("loginScreen").style.display="flex";
-
   }
 }
 
-
 async function openCRM(){
-
   document.getElementById("loginScreen").style.display="none";
   document.getElementById("app").style.display="block";
-
-  document.getElementById("welcomeUser").innerText =
-  "Signed in as " + currentUser.email;
+  document.getElementById("welcomeUser").textContent=
+    "Signed in as "+currentUser.email;
 
   await loadAll();
 }
 
 
-/* ========================================
-   LOADING
-======================================== */
+/* LOAD */
 
 function loading(show){
-
-  document.getElementById("loading").style.display =
-  show ? "flex" : "none";
-
+  document.getElementById("loading").style.display=
+    show?"flex":"none";
 }
 
-
-/* ========================================
-   LOAD DATABASE
-======================================== */
-
 async function loadAll(){
-
   loading(true);
 
-  const [
-    buyerResult,
-    supplierResult,
-    rfqResult,
-    orderResult
-  ] = await Promise.all([
-
-    client
-      .from("buyers")
-      .select("*")
-      .order("created_at",{ascending:false}),
-
-    client
-      .from("suppliers")
-      .select("*")
-      .order("created_at",{ascending:false}),
-
-    client
-      .from("rfqs")
-      .select("*")
-      .order("created_at",{ascending:false}),
-
-    client
-      .from("purchase_orders")
-      .select("*")
-      .order("created_at",{ascending:false})
-
+  const [b,s,r,p]=await Promise.all([
+    client.from("buyers").select("*").order("created_at",{ascending:false}),
+    client.from("suppliers").select("*").order("created_at",{ascending:false}),
+    client.from("rfqs").select("*").order("created_at",{ascending:false}),
+    client.from("purchase_orders").select("*").order("created_at",{ascending:false})
   ]);
 
-  if(buyerResult.error ||
-     supplierResult.error ||
-     rfqResult.error ||
-     orderResult.error){
+  loading(false);
 
-    console.error(
-      buyerResult.error,
-      supplierResult.error,
-      rfqResult.error,
-      orderResult.error
-    );
+  const errors=[
+    ["buyers",b.error],
+    ["suppliers",s.error],
+    ["rfqs",r.error],
+    ["purchase_orders",p.error]
+  ].filter(x=>x[1]);
 
-    alert("Database loading error. Check Supabase RLS policies.");
-
-    loading(false);
+  if(errors.length){
+    console.error(errors);
+    alert("Database error: "+errors[0][0]+" - "+errors[0][1].message);
     return;
   }
 
-  buyers=buyerResult.data || [];
-  suppliers=supplierResult.data || [];
-  rfqs=rfqResult.data || [];
-  orders=orderResult.data || [];
+  buyers=b.data||[];
+  suppliers=s.data||[];
+  rfqs=r.data||[];
+  orders=p.data||[];
 
   renderAll();
-
-  loading(false);
 }
 
 
-/* ========================================
-   BUYERS
-======================================== */
+/* BUYERS */
 
-async function addBuyer(){
-
+async function saveBuyer(){
   const company=value("bCompany").trim();
 
   if(!company){
@@ -1027,11 +952,7 @@ async function addBuyer(){
     return;
   }
 
-  loading(true);
-
-  const {error} =
-  await client.from("buyers").insert({
-
+  const payload={
     company,
     country:value("bCountry"),
     contact_person:value("bContact"),
@@ -1039,54 +960,84 @@ async function addBuyer(){
     phone:value("bPhone"),
     category:value("bCategory"),
     status:value("bStatus"),
-    next_follow_up:
-      value("bFollow") || null,
+    next_follow_up:value("bFollow")||null,
     notes:value("bNotes")
+  };
 
-  });
+  loading(true);
+
+  let result;
+
+  if(editingBuyerId){
+    result=await client.from("buyers")
+      .update(payload)
+      .eq("id",editingBuyerId);
+  }else{
+    result=await client.from("buyers").insert(payload);
+  }
 
   loading(false);
 
-  if(error){
-    alert(error.message);
+  if(result.error){
+    alert(result.error.message);
     return;
   }
+
+  cancelBuyerEdit();
+  await loadAll();
+}
+
+function editBuyer(id){
+  const b=buyers.find(x=>x.id===id);
+  if(!b)return;
+
+  editingBuyerId=id;
+
+  setValue("bCompany",b.company);
+  setValue("bCountry",b.country);
+  setValue("bContact",b.contact_person);
+  setValue("bEmail",b.email);
+  setValue("bPhone",b.phone);
+  setValue("bCategory",b.category);
+  setValue("bStatus",b.status||"Prospect");
+  setValue("bFollow",b.next_follow_up);
+  setValue("bNotes",b.notes);
+
+  document.getElementById("buyerFormTitle").textContent="Edit Buyer";
+  document.getElementById("buyerSaveBtn").textContent="Save Changes";
+  document.getElementById("buyerCancelBtn").style.display="inline-block";
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function cancelBuyerEdit(){
+  editingBuyerId=null;
 
   clear([
-    "bCompany","bCountry","bContact",
-    "bEmail","bPhone","bCategory",
-    "bFollow","bNotes"
+    "bCompany","bCountry","bContact","bEmail",
+    "bPhone","bCategory","bFollow","bNotes"
   ]);
 
-  await loadAll();
-}
+  setValue("bStatus","Prospect");
 
+  document.getElementById("buyerFormTitle").textContent="Add Buyer";
+  document.getElementById("buyerSaveBtn").textContent="+ Add Buyer";
+  document.getElementById("buyerCancelBtn").style.display="none";
+}
 
 async function deleteBuyer(id){
+  if(!confirm("Delete this buyer?"))return;
 
-  if(!confirm("Delete this buyer?")) return;
+  const {error}=await client.from("buyers").delete().eq("id",id);
 
-  const {error} =
-  await client
-  .from("buyers")
-  .delete()
-  .eq("id",id);
-
-  if(error){
-    alert(error.message);
-    return;
-  }
-
+  if(error){alert(error.message);return;}
   await loadAll();
 }
 
 
-/* ========================================
-   SUPPLIERS
-======================================== */
+/* SUPPLIERS */
 
-async function addSupplier(){
-
+async function saveSupplier(){
   const company=value("sCompany").trim();
 
   if(!company){
@@ -1094,11 +1045,7 @@ async function addSupplier(){
     return;
   }
 
-  loading(true);
-
-  const {error} =
-  await client.from("suppliers").insert({
-
+  const payload={
     company,
     country:value("sCountry"),
     contact_person:value("sContact"),
@@ -1110,77 +1057,128 @@ async function addSupplier(){
     lead_time:value("sLead"),
     oem:value("sOEM")==="true",
     notes:value("sNotes")
+  };
 
-  });
+  loading(true);
+
+  let result;
+
+  if(editingSupplierId){
+    result=await client.from("suppliers")
+      .update(payload)
+      .eq("id",editingSupplierId);
+  }else{
+    result=await client.from("suppliers").insert(payload);
+  }
 
   loading(false);
 
-  if(error){
-    alert(error.message);
+  if(result.error){
+    alert(result.error.message);
     return;
   }
+
+  cancelSupplierEdit();
+  await loadAll();
+}
+
+function editSupplier(id){
+  const s=suppliers.find(x=>x.id===id);
+  if(!s)return;
+
+  editingSupplierId=id;
+
+  setValue("sCompany",s.company);
+  setValue("sCountry",s.country);
+  setValue("sContact",s.contact_person);
+  setValue("sEmail",s.email);
+  setValue("sPhone",s.phone);
+  setValue("sWebsite",s.website);
+  setValue("sProduct",s.product);
+  setValue("sMOQ",s.moq);
+  setValue("sLead",s.lead_time);
+  setValue("sOEM",String(!!s.oem));
+  setValue("sNotes",s.notes);
+
+  document.getElementById("supplierFormTitle").textContent="Edit Supplier";
+  document.getElementById("supplierSaveBtn").textContent="Save Changes";
+  document.getElementById("supplierCancelBtn").style.display="inline-block";
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function cancelSupplierEdit(){
+  editingSupplierId=null;
 
   clear([
-    "sCompany","sCountry","sContact",
-    "sEmail","sPhone","sWebsite",
-    "sProduct","sMOQ","sLead","sNotes"
+    "sCompany","sCountry","sContact","sEmail","sPhone",
+    "sWebsite","sProduct","sMOQ","sLead","sNotes"
   ]);
 
-  await loadAll();
-}
+  setValue("sOEM","true");
 
+  document.getElementById("supplierFormTitle").textContent="Add Supplier";
+  document.getElementById("supplierSaveBtn").textContent="+ Add Supplier";
+  document.getElementById("supplierCancelBtn").style.display="none";
+}
 
 async function deleteSupplier(id){
+  if(!confirm("Delete this supplier?"))return;
 
-  if(!confirm("Delete this supplier?")) return;
+  const {error}=await client.from("suppliers").delete().eq("id",id);
 
-  const {error} =
-  await client
-  .from("suppliers")
-  .delete()
-  .eq("id",id);
-
-  if(error){
-    alert(error.message);
-    return;
-  }
-
+  if(error){alert(error.message);return;}
   await loadAll();
 }
 
 
-/* ========================================
-   RFQ
-======================================== */
+/* RFQ */
 
 function nextRFQNumber(){
-
   const year=new Date().getFullYear();
-
   let max=0;
 
   rfqs.forEach(r=>{
+    const m=String(r.rfq_no||"")
+      .match(new RegExp("^KP-"+year+"-(\\d+)$"));
 
-    if(!r.rfq_no) return;
-
-    const match =
-    r.rfq_no.match(
-      new RegExp("^KP-"+year+"-(\\d+)$")
-    );
-
-    if(match){
-      max=Math.max(max,Number(match[1]));
-    }
-
+    if(m)max=Math.max(max,Number(m[1]));
   });
 
-  return "KP-"+year+"-"+
-         String(max+1).padStart(4,"0");
+  return `KP-${year}-${String(max+1).padStart(4,"0")}`;
 }
 
+function getRFQCalculation(){
+  const qty=Number(value("rQuantity"))||0;
+  const unitCost=Number(value("rUnitCost"))||0;
+  const unitSales=Number(value("rUnitSales"))||0;
+
+  const totalCost=qty*unitCost;
+  const totalSales=qty*unitSales;
+  const profit=totalSales-totalCost;
+  const margin=totalSales>0?(profit/totalSales)*100:0;
+
+  return {qty,unitCost,unitSales,totalCost,totalSales,profit,margin};
+}
+
+function calculateRFQ(){
+  const c=getRFQCalculation();
+  const currency=value("rCurrency")||"USD";
+
+  document.getElementById("calcCost").textContent=
+    money(c.totalCost,currency);
+
+  document.getElementById("calcSales").textContent=
+    money(c.totalSales,currency);
+
+  document.getElementById("calcProfit").textContent=
+    money(c.profit,currency);
+
+  document.getElementById("calcMargin").textContent=
+    c.margin.toFixed(2)+"%";
+}
 
 async function addRFQ(){
-
   const product=value("rProduct").trim();
 
   if(!product){
@@ -1188,50 +1186,37 @@ async function addRFQ(){
     return;
   }
 
-  const buyerID =
-  value("rBuyer") ?
-  Number(value("rBuyer")) : null;
+  const buyerId=value("rBuyer")?Number(value("rBuyer")):null;
+  const supplierId=value("rSupplier")?Number(value("rSupplier")):null;
 
-  const supplierID =
-  value("rSupplier") ?
-  Number(value("rSupplier")) : null;
+  const buyer=buyers.find(b=>b.id===buyerId);
+  const c=getRFQCalculation();
 
-  const buyer =
-  buyers.find(b=>b.id===buyerID);
-
-  loading(true);
-
-  const {error} =
-  await client.from("rfqs").insert({
-
+  const payload={
     rfq_no:nextRFQNumber(),
-
-    buyer_id:buyerID,
-
-    buyer_name:
-      buyer ? buyer.company : "",
-
+    buyer_id:buyerId,
+    buyer_name:buyer?.company||"",
     product,
-
-    quantity:
-      Number(value("rQuantity")) || 0,
-
-    supplier_id:supplierID,
-
+    quantity:c.qty,
+    supplier_id:supplierId,
     currency:value("rCurrency"),
 
-    purchase_cost:
-      Number(value("rCost")) || 0,
+    purchase_cost:c.unitCost,
+    sales_price:c.unitSales,
 
-    sales_price:
-      Number(value("rSales")) || 0,
+    unit_cost:c.unitCost,
+    unit_sales_price:c.unitSales,
+    total_cost:c.totalCost,
+    total_sales:c.totalSales,
+    gross_profit:c.profit,
+    margin_percent:c.margin,
 
     status:value("rStatus"),
-
     notes:value("rNotes")
+  };
 
-  });
-
+  loading(true);
+  const {error}=await client.from("rfqs").insert(payload);
   loading(false);
 
   if(error){
@@ -1239,74 +1224,79 @@ async function addRFQ(){
     return;
   }
 
-  clear([
-    "rProduct",
-    "rQuantity",
-    "rCost",
-    "rSales",
-    "rNotes"
-  ]);
+  clear(["rProduct","rQuantity","rUnitCost","rUnitSales","rNotes"]);
+  calculateRFQ();
 
   await loadAll();
 }
-
 
 async function deleteRFQ(id){
+  if(!confirm("Delete this RFQ?"))return;
 
-  if(!confirm("Delete this RFQ?")) return;
+  const {error}=await client.from("rfqs").delete().eq("id",id);
 
-  const {error} =
-  await client
-  .from("rfqs")
-  .delete()
-  .eq("id",id);
-
-  if(error){
-    alert(error.message);
-    return;
-  }
-
+  if(error){alert(error.message);return;}
   await loadAll();
 }
 
+function createPOFromRFQ(id){
+  const r=rfqs.find(x=>x.id===id);
+  if(!r)return;
 
-/* ========================================
-   PURCHASE ORDERS
-======================================== */
+  const poTab=[...document.querySelectorAll(".tab")]
+    .find(x=>x.textContent.includes("Purchase"));
+
+  showTab("orders",poTab);
+
+  setValue("pRFQ",String(r.id));
+  setValue("pCustomer",r.buyer_name||"");
+  setValue("pCurrency",r.currency||"USD");
+  setValue("pAmount",r.total_sales||0);
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+
+/* PO */
+
+function fillPOFromRFQ(){
+  const id=Number(value("pRFQ"));
+  const r=rfqs.find(x=>x.id===id);
+
+  if(!r)return;
+
+  setValue("pCustomer",r.buyer_name);
+  setValue("pCurrency",r.currency||"USD");
+  setValue("pAmount",r.total_sales||0);
+}
 
 async function addPO(){
-
   const po=value("pNumber").trim();
 
   if(!po){
-    alert("PO number is required.");
+    alert("Internal PO number is required.");
     return;
   }
 
-  const rfqID =
-  value("pRFQ") ?
-  Number(value("pRFQ")) : null;
+  const rfqId=value("pRFQ")?Number(value("pRFQ")):null;
 
-  loading(true);
-
-  const {error} =
-  await client
-  .from("purchase_orders")
-  .insert({
-
+  const payload={
     po_no:po,
-    rfq_id:rfqID,
+    customer_po_no:value("pCustomerPO"),
+    supplier_po_no:value("pSupplierPO"),
+    rfq_id:rfqId,
     customer:value("pCustomer"),
     currency:value("pCurrency"),
-    amount:Number(value("pAmount")) || 0,
-    order_date:value("pOrderDate") || null,
-    shipment_date:value("pShipment") || null,
+    amount:Number(value("pAmount"))||0,
+    order_date:value("pOrderDate")||null,
+    shipment_date:value("pShipment")||null,
     payment_terms:value("pTerms"),
     status:value("pStatus"),
     notes:value("pNotes")
+  };
 
-  });
-
+  loading(true);
+  const {error}=await client.from("purchase_orders").insert(payload);
   loading(false);
 
   if(error){
@@ -1315,426 +1305,324 @@ async function addPO(){
   }
 
   clear([
-    "pNumber","pCustomer","pAmount",
-    "pOrderDate","pShipment",
-    "pTerms","pNotes"
+    "pNumber","pCustomerPO","pSupplierPO",
+    "pCustomer","pAmount","pOrderDate",
+    "pShipment","pTerms","pNotes"
   ]);
 
   await loadAll();
 }
 
-
 async function deletePO(id){
+  if(!confirm("Delete this purchase order?"))return;
 
-  if(!confirm("Delete this PO?")) return;
+  const {error}=await client.from("purchase_orders").delete().eq("id",id);
 
-  const {error} =
-  await client
-  .from("purchase_orders")
-  .delete()
-  .eq("id",id);
-
-  if(error){
-    alert(error.message);
-    return;
-  }
-
+  if(error){alert(error.message);return;}
   await loadAll();
 }
 
 
-/* ========================================
-   RENDER
-======================================== */
+/* RENDER */
 
 function renderAll(){
-
   renderBuyers();
   renderSuppliers();
   renderRFQs();
   renderPOs();
   renderSelectors();
+  renderFilters();
   renderDashboard();
-
 }
-
 
 function renderBuyers(){
+  const search=value("buyerSearch").toLowerCase();
+  const country=value("buyerCountryFilter");
+  const status=value("buyerStatusFilter");
 
-  const search =
-  value("buyerSearch").toLowerCase();
+  const data=buyers.filter(b=>{
+    const text=[
+      b.company,b.country,b.contact_person,
+      b.email,b.category,b.status
+    ].join(" ").toLowerCase();
 
-  const body =
-  document.getElementById("buyerTable");
+    return text.includes(search) &&
+      (!country||b.country===country) &&
+      (!status||b.status===status);
+  });
 
-  body.innerHTML="";
+  const body=document.getElementById("buyerTable");
 
-  const filtered =
-  buyers.filter(b=>
-    Object.values(b)
-    .join(" ")
-    .toLowerCase()
-    .includes(search)
-  );
-
-  if(!filtered.length){
-
-    body.innerHTML =
-    `<tr><td colspan="8" class="empty">
-    No buyers found.
-    </td></tr>`;
-
+  if(!data.length){
+    body.innerHTML='<tr><td colspan="8" class="empty">No buyers found.</td></tr>';
     return;
   }
 
-  filtered.forEach(b=>{
-
-    body.innerHTML += `
-
+  body.innerHTML=data.map(b=>`
     <tr>
-
-    <td><strong>${esc(b.company)}</strong></td>
-    <td>${esc(b.country)}</td>
-    <td>${esc(b.contact_person)}</td>
-    <td>${esc(b.email)}</td>
-    <td>${esc(b.category)}</td>
-
-    <td>
-      <span class="badge">
-      ${esc(b.status)}
-      </span>
-    </td>
-
-    <td>${esc(b.next_follow_up)}</td>
-
-    <td>
-      <button class="delete-btn"
-      onclick="deleteBuyer(${b.id})">
-      Delete
-      </button>
-    </td>
-
-    </tr>`;
-
-  });
-
+      <td><strong>${esc(b.company)}</strong></td>
+      <td>${esc(b.country)}</td>
+      <td>${esc(b.contact_person)}</td>
+      <td>${esc(b.email)}</td>
+      <td>${esc(b.category)}</td>
+      <td><span class="badge">${esc(b.status)}</span></td>
+      <td>${esc(b.next_follow_up)}</td>
+      <td>
+        <div class="row-actions">
+          <button class="edit-btn" onclick="editBuyer(${b.id})">Edit</button>
+          <button class="delete-btn" onclick="deleteBuyer(${b.id})">Delete</button>
+        </div>
+      </td>
+    </tr>
+  `).join("");
 }
-
 
 function renderSuppliers(){
+  const search=value("supplierSearch").toLowerCase();
+  const country=value("supplierCountryFilter");
 
-  const body =
-  document.getElementById("supplierTable");
+  const data=suppliers.filter(s=>{
+    const text=[
+      s.company,s.country,s.product,
+      s.contact_person,s.email
+    ].join(" ").toLowerCase();
 
-  body.innerHTML="";
+    return text.includes(search) &&
+      (!country||s.country===country);
+  });
 
-  if(!suppliers.length){
+  const body=document.getElementById("supplierTable");
 
-    body.innerHTML =
-    `<tr><td colspan="9" class="empty">
-    No suppliers found.
-    </td></tr>`;
-
+  if(!data.length){
+    body.innerHTML='<tr><td colspan="9" class="empty">No suppliers found.</td></tr>';
     return;
   }
 
-  suppliers.forEach(s=>{
-
-    body.innerHTML += `
-
+  body.innerHTML=data.map(s=>`
     <tr>
-
-    <td><strong>${esc(s.company)}</strong></td>
-    <td>${esc(s.country)}</td>
-    <td>${esc(s.product)}</td>
-    <td>${esc(s.contact_person)}</td>
-    <td>${esc(s.email)}</td>
-    <td>${esc(s.moq)}</td>
-    <td>${esc(s.lead_time)}</td>
-    <td>${s.oem ? "Yes" : "No"}</td>
-
-    <td>
-      <button class="delete-btn"
-      onclick="deleteSupplier(${s.id})">
-      Delete
-      </button>
-    </td>
-
-    </tr>`;
-
-  });
-
+      <td><strong>${esc(s.company)}</strong></td>
+      <td>${esc(s.country)}</td>
+      <td>${esc(s.product)}</td>
+      <td>${esc(s.contact_person)}</td>
+      <td>${esc(s.email)}</td>
+      <td>${esc(s.moq)}</td>
+      <td>${esc(s.lead_time)}</td>
+      <td>${s.oem?"Yes":"No"}</td>
+      <td>
+        <div class="row-actions">
+          <button class="edit-btn" onclick="editSupplier(${s.id})">Edit</button>
+          <button class="delete-btn" onclick="deleteSupplier(${s.id})">Delete</button>
+        </div>
+      </td>
+    </tr>
+  `).join("");
 }
-
 
 function renderRFQs(){
+  const search=value("rfqSearch").toLowerCase();
+  const status=value("rfqStatusFilter");
 
-  const body =
-  document.getElementById("rfqTable");
+  const data=rfqs.filter(r=>{
+    const text=[
+      r.rfq_no,r.buyer_name,r.product,r.status
+    ].join(" ").toLowerCase();
 
-  body.innerHTML="";
+    return text.includes(search) &&
+      (!status||r.status===status);
+  });
 
-  if(!rfqs.length){
+  const body=document.getElementById("rfqTable");
 
-    body.innerHTML =
-    `<tr><td colspan="10" class="empty">
-    No RFQs found.
-    </td></tr>`;
-
+  if(!data.length){
+    body.innerHTML='<tr><td colspan="11" class="empty">No RFQs found.</td></tr>';
     return;
   }
 
-  rfqs.forEach(r=>{
-
-    body.innerHTML += `
-
+  body.innerHTML=data.map(r=>`
     <tr>
-
-    <td><strong>${esc(r.rfq_no)}</strong></td>
-    <td>${esc(r.rfq_date)}</td>
-    <td>${esc(r.buyer_name)}</td>
-    <td>${esc(r.product)}</td>
-
-    <td>
-    ${money(r.purchase_cost,r.currency)}
-    </td>
-
-    <td>
-    ${money(r.sales_price,r.currency)}
-    </td>
-
-    <td class="profit">
-    ${money(r.gross_profit,r.currency)}
-    </td>
-
-    <td>
-    ${Number(r.margin_percent || 0).toFixed(1)}%
-    </td>
-
-    <td>
-      <span class="badge">
-      ${esc(r.status)}
-      </span>
-    </td>
-
-    <td>
-      <button class="delete-btn"
-      onclick="deleteRFQ(${r.id})">
-      Delete
-      </button>
-    </td>
-
-    </tr>`;
-
-  });
-
+      <td><strong>${esc(r.rfq_no)}</strong></td>
+      <td>${esc(r.buyer_name)}</td>
+      <td>${esc(r.product)}</td>
+      <td>${num(r.quantity)}</td>
+      <td>${money(r.unit_cost ?? r.purchase_cost,r.currency)}</td>
+      <td>${money(r.unit_sales_price ?? r.sales_price,r.currency)}</td>
+      <td>${money(r.total_sales,r.currency)}</td>
+      <td class="profit-text">${money(r.gross_profit,r.currency)}</td>
+      <td>${Number(r.margin_percent||0).toFixed(2)}%</td>
+      <td><span class="badge">${esc(r.status)}</span></td>
+      <td>
+        <div class="row-actions">
+          <button class="po-btn" onclick="createPOFromRFQ(${r.id})">Create PO</button>
+          <button class="delete-btn" onclick="deleteRFQ(${r.id})">Delete</button>
+        </div>
+      </td>
+    </tr>
+  `).join("");
 }
-
 
 function renderPOs(){
+  const search=value("poSearch").toLowerCase();
 
-  const body =
-  document.getElementById("poTable");
+  const data=orders.filter(p=>{
+    const text=[
+      p.po_no,p.customer_po_no,p.supplier_po_no,
+      p.customer,p.status
+    ].join(" ").toLowerCase();
 
-  body.innerHTML="";
+    return text.includes(search);
+  });
 
-  if(!orders.length){
+  const body=document.getElementById("poTable");
 
-    body.innerHTML =
-    `<tr><td colspan="9" class="empty">
-    No purchase orders found.
-    </td></tr>`;
-
+  if(!data.length){
+    body.innerHTML='<tr><td colspan="11" class="empty">No purchase orders found.</td></tr>';
     return;
   }
 
-  orders.forEach(p=>{
+  body.innerHTML=data.map(p=>{
+    const r=rfqs.find(x=>x.id===p.rfq_id);
 
-    const rfq =
-    rfqs.find(r=>r.id===p.rfq_id);
-
-    body.innerHTML += `
-
-    <tr>
-
-    <td><strong>${esc(p.po_no)}</strong></td>
-    <td>${esc(p.customer)}</td>
-    <td>${rfq ? esc(rfq.rfq_no) : ""}</td>
-
-    <td>
-    ${money(p.amount,p.currency)}
-    </td>
-
-    <td>${esc(p.order_date)}</td>
-    <td>${esc(p.shipment_date)}</td>
-    <td>${esc(p.payment_terms)}</td>
-
-    <td>
-      <span class="badge">
-      ${esc(p.status)}
-      </span>
-    </td>
-
-    <td>
-      <button class="delete-btn"
-      onclick="deletePO(${p.id})">
-      Delete
-      </button>
-    </td>
-
-    </tr>`;
-
-  });
-
+    return `
+      <tr>
+        <td><strong>${esc(p.po_no)}</strong></td>
+        <td>${esc(p.customer_po_no)}</td>
+        <td>${esc(p.supplier_po_no)}</td>
+        <td>${esc(p.customer)}</td>
+        <td>${r?esc(r.rfq_no):""}</td>
+        <td>${money(p.amount,p.currency)}</td>
+        <td>${esc(p.order_date)}</td>
+        <td>${esc(p.shipment_date)}</td>
+        <td>${esc(p.payment_terms)}</td>
+        <td><span class="badge">${esc(p.status)}</span></td>
+        <td>
+          <button class="delete-btn" onclick="deletePO(${p.id})">Delete</button>
+        </td>
+      </tr>
+    `;
+  }).join("");
 }
-
 
 function renderSelectors(){
+  document.getElementById("rBuyer").innerHTML=
+    '<option value="">Select Buyer</option>'+
+    buyers.map(b=>`<option value="${b.id}">${esc(b.company)}</option>`).join("");
 
-  document.getElementById("rBuyer").innerHTML =
-  `<option value="">Select Buyer</option>` +
-  buyers.map(b=>
-    `<option value="${b.id}">
-    ${esc(b.company)}
-    </option>`
-  ).join("");
+  document.getElementById("rSupplier").innerHTML=
+    '<option value="">Select Supplier</option>'+
+    suppliers.map(s=>`<option value="${s.id}">${esc(s.company)}</option>`).join("");
 
-  document.getElementById("rSupplier").innerHTML =
-  `<option value="">Select Supplier</option>` +
-  suppliers.map(s=>
-    `<option value="${s.id}">
-    ${esc(s.company)}
-    </option>`
-  ).join("");
-
-  document.getElementById("pRFQ").innerHTML =
-  `<option value="">Select RFQ</option>` +
-  rfqs.map(r=>
-    `<option value="${r.id}">
-    ${esc(r.rfq_no)} - ${esc(r.buyer_name)}
-    </option>`
-  ).join("");
-
+  document.getElementById("pRFQ").innerHTML=
+    '<option value="">Select RFQ</option>'+
+    rfqs.map(r=>`
+      <option value="${r.id}">
+        ${esc(r.rfq_no)} - ${esc(r.buyer_name)}
+      </option>
+    `).join("");
 }
 
+function renderFilters(){
+  const buyerCountries=[...new Set(
+    buyers.map(x=>x.country).filter(Boolean)
+  )].sort();
+
+  const supplierCountries=[...new Set(
+    suppliers.map(x=>x.country).filter(Boolean)
+  )].sort();
+
+  const bCurrent=value("buyerCountryFilter");
+  const sCurrent=value("supplierCountryFilter");
+
+  document.getElementById("buyerCountryFilter").innerHTML=
+    '<option value="">All Countries</option>'+
+    buyerCountries.map(x=>`<option>${esc(x)}</option>`).join("");
+
+  document.getElementById("supplierCountryFilter").innerHTML=
+    '<option value="">All Countries</option>'+
+    supplierCountries.map(x=>`<option>${esc(x)}</option>`).join("");
+
+  setValue("buyerCountryFilter",bCurrent);
+  setValue("supplierCountryFilter",sCurrent);
+}
 
 function renderDashboard(){
+  document.getElementById("buyerCount").textContent=buyers.length;
+  document.getElementById("supplierCount").textContent=suppliers.length;
 
-  document.getElementById("buyerCount").innerText =
-  buyers.length;
+  document.getElementById("rfqCount").textContent=
+    rfqs.filter(r=>!["Won","Lost"].includes(r.status)).length;
 
-  document.getElementById("supplierCount").innerText =
-  suppliers.length;
+  document.getElementById("poCount").textContent=
+    orders.filter(p=>p.status!=="Completed").length;
 
-  document.getElementById("rfqCount").innerText =
-  rfqs.filter(r=>
-    r.status!=="Won" &&
-    r.status!=="Lost"
-  ).length;
+  const pipeline=rfqs
+    .filter(r=>r.status!=="Lost")
+    .reduce((sum,r)=>sum+Number(r.total_sales||0),0);
 
-  document.getElementById("poCount").innerText =
-  orders.filter(p=>
-    p.status!=="Completed"
-  ).length;
+  const profit=rfqs
+    .filter(r=>r.status!=="Lost")
+    .reduce((sum,r)=>sum+Number(r.gross_profit||0),0);
 
-  const pipeline =
-  rfqs
-  .filter(r=>r.status!=="Lost")
-  .reduce((sum,r)=>
-    sum+Number(r.sales_price || 0),0
-  );
+  document.getElementById("pipeline").textContent=
+    "$"+pipeline.toLocaleString("en-US",{maximumFractionDigits:2});
 
-  const profit =
-  rfqs
-  .filter(r=>r.status!=="Lost")
-  .reduce((sum,r)=>
-    sum+Number(r.gross_profit || 0),0
-  );
-
-  document.getElementById("pipeline").innerText =
-  "$"+pipeline.toLocaleString("en-US");
-
-  document.getElementById("grossProfit").innerText =
-  "$"+profit.toLocaleString("en-US");
-
+  document.getElementById("grossProfit").textContent=
+    "$"+profit.toLocaleString("en-US",{maximumFractionDigits:2});
 }
 
 
-/* ========================================
-   UI
-======================================== */
+/* UI */
 
 function showTab(id,button){
-
   document.querySelectorAll(".panel")
-  .forEach(p=>p.classList.remove("active"));
+    .forEach(x=>x.classList.remove("active"));
 
   document.querySelectorAll(".tab")
-  .forEach(t=>t.classList.remove("active"));
+    .forEach(x=>x.classList.remove("active"));
 
-  document.getElementById(id)
-  .classList.add("active");
+  document.getElementById(id).classList.add("active");
 
-  button.classList.add("active");
-
+  if(button)button.classList.add("active");
 }
 
 
-/* ========================================
-   HELPERS
-======================================== */
+/* HELPERS */
 
 function value(id){
-  return document.getElementById(id)?.value || "";
+  return document.getElementById(id)?.value||"";
 }
 
+function setValue(id,v){
+  const el=document.getElementById(id);
+  if(el)el.value=v??"";
+}
 
 function clear(ids){
-
-  ids.forEach(id=>{
-
-    const el=document.getElementById(id);
-
-    if(el) el.value="";
-
-  });
-
+  ids.forEach(id=>setValue(id,""));
 }
-
 
 function esc(v){
-
-  return String(v ?? "")
-  .replace(/&/g,"&amp;")
-  .replace(/</g,"&lt;")
-  .replace(/>/g,"&gt;")
-  .replace(/"/g,"&quot;")
-  .replace(/'/g,"&#039;");
-
+  return String(v??"")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
 
+function num(v){
+  return Number(v||0).toLocaleString("en-US");
+}
 
 function money(amount,currency="USD"){
+  const symbols={USD:"$",EUR:"€",KRW:"₩",CNY:"¥"};
 
-  const symbols={
-    USD:"$",
-    EUR:"€",
-    KRW:"₩",
-    CNY:"¥"
-  };
-
-  return (symbols[currency] || currency+" ") +
-  Number(amount || 0).toLocaleString("en-US",{
-    maximumFractionDigits:2
-  });
-
+  return (symbols[currency]||currency+" ")+
+    Number(amount||0).toLocaleString("en-US",{
+      maximumFractionDigits:2
+    });
 }
 
-
-/* START */
-
 init();
-
 </script>
 
 </body>
