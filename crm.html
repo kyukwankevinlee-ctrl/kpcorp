@@ -1368,20 +1368,7 @@ async function saveRFQ(){
     notes:value("rNotes")
   };
 
-  loading(true);
-  const {error}=await client.from("rfqs").insert(payload);
-  loading(false);
-
-  if(error){
-    alert(error.message);
-    return;
-  }
-
-  clear(["rProduct","rQuantity","rUnitCost","rUnitSales","rNotes"]);
-  calculateRFQ();
-
-  await loadAll();
-}
+  
 
 async function deleteRFQ(id){
   if(!confirm("Delete this RFQ?"))return;
