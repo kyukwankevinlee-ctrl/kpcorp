@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>KP Holdings | Business Control Center</title>
+<title>KP Holdings | Business Control Center V3.2</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -353,6 +353,9 @@ td{
 .edit-btn{background:#dbeafe;color:#1d4ed8}
 .delete-btn{background:#fee2e2;color:var(--red)}
 .po-btn{background:#dcfce7;color:#15803d}
+.quote-btn{background:#fef3c7;color:#92400e;border:0;padding:7px 10px;border-radius:7px;cursor:pointer;font-size:12px}
+.export-btn{background:#ecfeff;color:#0e7490;border:0;padding:10px 14px;border-radius:9px;font-weight:700;cursor:pointer}
+.follow-overdue{color:var(--red);font-weight:700}.follow-today{color:var(--orange);font-weight:700}
 
 .badge{
   display:inline-block;
@@ -522,6 +525,7 @@ td{
   <h2>Buyer Database</h2>
 
   <div class="filters">
+    <button class="export-btn" onclick="exportCSV('buyers')">Export CSV</button>
     <input id="buyerSearch"
       placeholder="Search buyers..."
       oninput="renderBuyers()">
@@ -600,6 +604,7 @@ td{
   <h2>Supplier Database</h2>
 
   <div class="filters">
+    <button class="export-btn" onclick="exportCSV('suppliers')">Export CSV</button>
     <input id="supplierSearch"
            placeholder="Search suppliers..."
            oninput="renderSuppliers()">
@@ -722,6 +727,7 @@ td{
   <h2>RFQ Pipeline</h2>
 
   <div class="filters">
+    <button class="export-btn" onclick="exportCSV('rfqs')">Export CSV</button>
     <input id="rfqSearch"
            placeholder="Search RFQ..."
            oninput="renderRFQs()">
@@ -763,7 +769,7 @@ td{
 
 <div class="box">
 
-<h2>Add Purchase Order</h2>
+<h2 id="poFormTitle">Add Purchase Order</h2>
 
 <div class="form-grid">
 
@@ -803,7 +809,10 @@ td{
 
 <textarea id="pNotes" placeholder="Notes"></textarea>
 
-<button class="primary" onclick="addPO()">+ Add Purchase Order</button>
+<div class="action-row">
+<button id="poSaveBtn" class="primary" onclick="savePO()">+ Add Purchase Order</button>
+<button id="poCancelBtn" class="secondary" onclick="cancelPOEdit()" style="display:none">Cancel Edit</button>
+</div>
 
 </div>
 
@@ -814,6 +823,7 @@ td{
   <h2>Purchase Orders</h2>
 
   <div class="filters">
+    <button class="export-btn" onclick="exportCSV('orders')">Export CSV</button>
     <input id="poSearch"
            placeholder="Search PO..."
            oninput="renderPOs()">
@@ -859,6 +869,7 @@ let orders=[];
 let editingBuyerId=null;
 let editingSupplierId=null;
 let editingRFQId=null;
+let editingPOId=null;
 
 /* AUTH */
 
@@ -1265,34 +1276,7 @@ async function saveRFQ(){
   await loadAll();
 }
 
-  const buyerId=value("rBuyer")?Number(value("rBuyer")):null;
-  const supplierId=value("rSupplier")?Number(value("rSupplier")):null;
 
-  const buyer=buyers.find(b=>b.id===buyerId);
-  const c=getRFQCalculation();
-
-  const payload={
-    rfq_no:nextRFQNumber(),
-    buyer_id:buyerId,
-    buyer_name:buyer?.company||"",
-    product,
-    quantity:c.qty,
-    supplier_id:supplierId,
-    currency:value("rCurrency"),
-
-    purchase_cost:c.unitCost,
-    sales_price:c.unitSales,
-
-    unit_cost:c.unitCost,
-    unit_sales_price:c.unitSales,
-    total_cost:c.totalCost,
-    total_sales:c.totalSales,
-
-    status:value("rStatus"),
-    notes:value("rNotes")
-  };
-
-  
 function editRFQ(id){
   const r=rfqs.find(x=>x.id===id);
   if(!r)return;
@@ -1383,47 +1367,49 @@ function fillPOFromRFQ(){
   setValue("pAmount",r.total_sales||0);
 }
 
-async function addPO(){
+async function savePO(){
   const po=value("pNumber").trim();
-
-  if(!po){
-    alert("Internal PO number is required.");
-    return;
-  }
-
+  if(!po){ alert("Internal PO number is required."); return; }
   const rfqId=value("pRFQ")?Number(value("pRFQ")):null;
-
   const payload={
-    po_no:po,
-    customer_po_no:value("pCustomerPO"),
-    supplier_po_no:value("pSupplierPO"),
-    rfq_id:rfqId,
-    customer:value("pCustomer"),
-    currency:value("pCurrency"),
-    amount:Number(value("pAmount"))||0,
-    order_date:value("pOrderDate")||null,
-    shipment_date:value("pShipment")||null,
-    payment_terms:value("pTerms"),
-    status:value("pStatus"),
-    notes:value("pNotes")
+    po_no:po, customer_po_no:value("pCustomerPO"), supplier_po_no:value("pSupplierPO"),
+    rfq_id:rfqId, customer:value("pCustomer"), currency:value("pCurrency"),
+    amount:Number(value("pAmount"))||0, order_date:value("pOrderDate")||null,
+    shipment_date:value("pShipment")||null, payment_terms:value("pTerms"),
+    status:value("pStatus"), notes:value("pNotes")
   };
-
   loading(true);
-  const {error}=await client.from("purchase_orders").insert(payload);
+  const result=editingPOId
+    ? await client.from("purchase_orders").update(payload).eq("id",editingPOId)
+    : await client.from("purchase_orders").insert(payload);
   loading(false);
-
-  if(error){
-    alert(error.message);
-    return;
-  }
-
-  clear([
-    "pNumber","pCustomerPO","pSupplierPO",
-    "pCustomer","pAmount","pOrderDate",
-    "pShipment","pTerms","pNotes"
-  ]);
-
+  if(result.error){ alert(result.error.message); return; }
+  cancelPOEdit();
   await loadAll();
+}
+
+function editPO(id){
+  const p=orders.find(x=>x.id===id); if(!p)return;
+  editingPOId=id;
+  setValue("pNumber",p.po_no); setValue("pCustomerPO",p.customer_po_no);
+  setValue("pSupplierPO",p.supplier_po_no); setValue("pRFQ",p.rfq_id);
+  setValue("pCustomer",p.customer); setValue("pCurrency",p.currency||"USD");
+  setValue("pAmount",p.amount); setValue("pOrderDate",p.order_date);
+  setValue("pShipment",p.shipment_date); setValue("pTerms",p.payment_terms);
+  setValue("pStatus",p.status||"PO Received"); setValue("pNotes",p.notes);
+  document.getElementById("poFormTitle").textContent="Edit Purchase Order";
+  document.getElementById("poSaveBtn").textContent="Save Changes";
+  document.getElementById("poCancelBtn").style.display="inline-block";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function cancelPOEdit(){
+  editingPOId=null;
+  clear(["pNumber","pCustomerPO","pSupplierPO","pCustomer","pAmount","pOrderDate","pShipment","pTerms","pNotes"]);
+  setValue("pRFQ",""); setValue("pCurrency","USD"); setValue("pStatus","PO Received");
+  document.getElementById("poFormTitle").textContent="Add Purchase Order";
+  document.getElementById("poSaveBtn").textContent="+ Add Purchase Order";
+  document.getElementById("poCancelBtn").style.display="none";
 }
 
 async function deletePO(id){
@@ -1449,59 +1435,16 @@ function renderAll(){
 }
 
 function renderBuyers(){
-  const search=value("buyerSearch").toLowerCase();
-  const country=value("buyerCountryFilter");
-  const status=value("buyerStatusFilter");
-
-  const data=buyers.filter(b=>{
-    const text=[
-      b.company,b.country,b.contact_person,
-      b.email,b.category,b.status
-    ].join(" ").toLowerCase();
-
-    return text.includes(search) &&
-      (!country||b.country===country) &&
-      (!status||b.status===status);
-  });
-
+  const search=value("buyerSearch").toLowerCase(), country=value("buyerCountryFilter"), status=value("buyerStatusFilter");
+  const data=buyers.filter(b=>[b.company,b.country,b.contact_person,b.email,b.category,b.status].join(" ").toLowerCase().includes(search) && (!country||b.country===country) && (!status||b.status===status));
   const body=document.getElementById("buyerTable");
-
-  if(!data.length){
-    body.innerHTML='<tr><td colspan="8" class="empty">No buyers found.</td></tr>';
-    return;
-  }
-
-  body.innerHTML=data.map(b=>`
-    <tr>
-      <td><strong>${esc(b.company)}</strong></td>
-      <td>${esc(b.country)}</td>
-      <td>${esc(b.contact_person)}</td>
-      <td>${esc(b.email)}</td>
-      <td>${esc(b.category)}</td>
-      <td><span class="badge">${esc(b.status)}</span></td>
-      <td>${esc(b.next_follow_up)}</td>
-      <td>
-        <div class="row-actions">
-
-  <button class="edit-btn"
-          onclick="editRFQ(${r.id})">
-    Edit
-  </button>
-
-  <button class="po-btn"
-          onclick="createPOFromRFQ(${r.id})">
-    Create PO
-  </button>
-
-  <button class="delete-btn"
-          onclick="deleteRFQ(${r.id})">
-    Delete
-  </button>
-
-</div>
-      </td>
-    </tr>
-  `).join("");
+  if(!data.length){ body.innerHTML='<tr><td colspan="8" class="empty">No buyers found.</td></tr>'; return; }
+  body.innerHTML=data.map(b=>`<tr>
+    <td><strong>${esc(b.company)}</strong></td><td>${esc(b.country)}</td><td>${esc(b.contact_person)}</td>
+    <td>${esc(b.email)}</td><td>${esc(b.category)}</td><td><span class="badge">${esc(b.status)}</span></td>
+    <td class="${followClass(b.next_follow_up)}">${esc(b.next_follow_up)}</td>
+    <td><div class="row-actions"><button class="edit-btn" onclick="editBuyer(${b.id})">Edit</button><button class="delete-btn" onclick="deleteBuyer(${b.id})">Delete</button></div></td>
+  </tr>`).join("");
 }
 
 function renderSuppliers(){
@@ -1574,14 +1517,13 @@ function renderRFQs(){
       <td>${money(r.unit_cost ?? r.purchase_cost,r.currency)}</td>
       <td>${money(r.unit_sales_price ?? r.sales_price,r.currency)}</td>
       <td>${money(r.total_sales,r.currency)}</td>
-      <td class="profit-text">${money(
-  Number(r.total_sales || 0) - Number(r.total_cost || 0),
-  r.currency
-)}</td>
+      <td class="profit-text">${money(r.gross_profit ?? (Number(r.total_sales||0)-Number(r.total_cost||0)),r.currency)}</td>
       <td>${Number(r.margin_percent||0).toFixed(2)}%</td>
       <td><span class="badge">${esc(r.status)}</span></td>
       <td>
         <div class="row-actions">
+          <button class="edit-btn" onclick="editRFQ(${r.id})">Edit</button>
+          <button class="quote-btn" onclick="printQuotation(${r.id})">Quotation</button>
           <button class="po-btn" onclick="createPOFromRFQ(${r.id})">Create PO</button>
           <button class="delete-btn" onclick="deleteRFQ(${r.id})">Delete</button>
         </div>
@@ -1625,7 +1567,7 @@ function renderPOs(){
         <td>${esc(p.payment_terms)}</td>
         <td><span class="badge">${esc(p.status)}</span></td>
         <td>
-          <button class="delete-btn" onclick="deletePO(${p.id})">Delete</button>
+          <div class="row-actions"><button class="edit-btn" onclick="editPO(${p.id})">Edit</button><button class="delete-btn" onclick="deletePO(${p.id})">Delete</button></div>
         </td>
       </tr>
     `;
@@ -1691,7 +1633,7 @@ function renderDashboard(){
   const profit=rfqs
     .filter(r=>r.status!=="Lost")
     .reduce((sum,r)=>
-  sum + (Number(r.total_sales||0) - Number(r.total_cost||0)),0);
+  sum + Number(r.gross_profit ?? (Number(r.total_sales||0)-Number(r.total_cost||0))),0);
   document.getElementById("pipeline").textContent=
     "$"+pipeline.toLocaleString("en-US",{maximumFractionDigits:2});
 
@@ -1699,6 +1641,46 @@ function renderDashboard(){
     "$"+profit.toLocaleString("en-US",{maximumFractionDigits:2});
 }
 
+
+/* V3.2 TOOLS */
+function followClass(date){
+  if(!date)return "";
+  const today=new Date(); today.setHours(0,0,0,0);
+  const d=new Date(date+"T00:00:00");
+  if(d<today)return "follow-overdue";
+  if(d.getTime()===today.getTime())return "follow-today";
+  return "";
+}
+
+function exportCSV(type){
+  const configs={
+    buyers:{data:buyers,cols:[["Company","company"],["Country","country"],["Contact","contact_person"],["Email","email"],["Phone","phone"],["Category","category"],["Status","status"],["Next Follow-up","next_follow_up"],["Notes","notes"]]},
+    suppliers:{data:suppliers,cols:[["Manufacturer","company"],["Country","country"],["Contact","contact_person"],["Email","email"],["Phone","phone"],["Website","website"],["Product","product"],["MOQ","moq"],["Lead Time","lead_time"],["OEM","oem"],["Notes","notes"]]},
+    rfqs:{data:rfqs,cols:[["RFQ No","rfq_no"],["Buyer","buyer_name"],["Product","product"],["Quantity","quantity"],["Currency","currency"],["Unit Cost","unit_cost"],["Unit Sales","unit_sales_price"],["Total Cost","total_cost"],["Total Sales","total_sales"],["Gross Profit","gross_profit"],["Margin %","margin_percent"],["Status","status"],["Notes","notes"]]},
+    orders:{data:orders,cols:[["PO","po_no"],["Customer PO","customer_po_no"],["Supplier PO","supplier_po_no"],["Customer","customer"],["Currency","currency"],["Amount","amount"],["Order Date","order_date"],["Shipment Date","shipment_date"],["Payment Terms","payment_terms"],["Status","status"],["Notes","notes"]]}
+  };
+  const c=configs[type]; if(!c)return;
+  const q=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
+  const rows=[c.cols.map(x=>q(x[0])).join(","),...c.data.map(row=>c.cols.map(x=>q(row[x[1]])).join(","))];
+  const blob=new Blob(["\ufeff"+rows.join("\r\n")],{type:"text/csv;charset=utf-8;"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=`kp_${type}_${new Date().toISOString().slice(0,10)}.csv`; a.click(); URL.revokeObjectURL(a.href);
+}
+
+function printQuotation(id){
+  const r=rfqs.find(x=>x.id===id); if(!r)return;
+  const buyer=buyers.find(b=>b.id===r.buyer_id);
+  const w=window.open("","_blank");
+  const html=`<!doctype html><html><head><title>${esc(r.rfq_no)} Quotation</title><style>
+  body{font-family:Arial,sans-serif;color:#172033;padding:48px;max-width:900px;margin:auto}h1{color:#071a39;margin:0}.top{display:flex;justify-content:space-between;border-bottom:3px solid #071a39;padding-bottom:20px}.meta{margin:30px 0;line-height:1.8}table{width:100%;border-collapse:collapse;margin-top:25px}th,td{border:1px solid #dbe2ea;padding:12px;text-align:left}th{background:#071a39;color:white}.right{text-align:right}.total{font-size:20px;font-weight:bold}.foot{margin-top:45px;color:#64748b;font-size:12px}@media print{button{display:none}body{padding:20px}}</style></head><body>
+  <div class="top"><div><h1>KP HOLDINGS</h1><div>Global Industrial Sourcing</div></div><div><h2>QUOTATION</h2><div>${esc(r.rfq_no)}</div></div></div>
+  <div class="meta"><strong>Customer:</strong> ${esc(r.buyer_name)}<br><strong>Contact:</strong> ${esc(buyer?.contact_person||"")}<br><strong>Date:</strong> ${new Date().toLocaleDateString("en-CA")}</div>
+  <table><thead><tr><th>Product</th><th>Qty</th><th>Unit Price</th><th>Total</th></tr></thead><tbody><tr><td>${esc(r.product)}</td><td>${num(r.quantity)}</td><td>${money(r.unit_sales_price??r.sales_price,r.currency)}</td><td>${money(r.total_sales,r.currency)}</td></tr></tbody></table>
+  <p class="right total">Total: ${money(r.total_sales,r.currency)}</p>
+  <div class="meta"><strong>Notes:</strong><br>${esc(r.notes||"-")}</div>
+  <div class="foot">This quotation is generated by KP Holdings Business Control Center. Purchase cost and internal margin are confidential and are not included.</div>
+  <p><button onclick="window.print()">Print / Save as PDF</button></p></body></html>`;
+  w.document.write(html); w.document.close();
+}
 
 /* UI */
 
