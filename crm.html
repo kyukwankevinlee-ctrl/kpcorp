@@ -1445,7 +1445,10 @@ function renderRFQs(){
       <td>${money(r.unit_cost ?? r.purchase_cost,r.currency)}</td>
       <td>${money(r.unit_sales_price ?? r.sales_price,r.currency)}</td>
       <td>${money(r.total_sales,r.currency)}</td>
-      <td class="profit-text">${money(r.gross_profit,r.currency)}</td>
+      <td class="profit-text">${money(
+  Number(r.total_sales || 0) - Number(r.total_cost || 0),
+  r.currency
+)}</td>
       <td>${Number(r.margin_percent||0).toFixed(2)}%</td>
       <td><span class="badge">${esc(r.status)}</span></td>
       <td>
