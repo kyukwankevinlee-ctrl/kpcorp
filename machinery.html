@@ -66,39 +66,50 @@ body{overflow-x:hidden}
 .page-hero{padding:170px 0 70px}.page-hero p{max-width:780px;font-size:20px;line-height:1.55;color:#52606d}.detail-visual{width:min(calc(100% - 72px),1440px);margin:0 auto;aspect-ratio:16/7;overflow:hidden;background:#111}.detail-visual img{width:100%;height:100%;object-fit:cover}.global-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:56px}.global-grid>div{background:var(--paper);padding:30px;min-height:170px}.global-grid b{display:block;font-size:20px;margin-bottom:12px}.global-grid small{color:var(--muted);line-height:1.5}
 @media(max-width:900px){.page-hero{padding:125px 0 44px}.page-title{font-size:52px}.page-hero p{font-size:17px}.detail-visual{width:calc(100% - 36px);aspect-ratio:4/3}.visual{width:calc(100% - 36px)!important;height:auto!important;max-height:none!important;aspect-ratio:4/3!important}.visual img{height:100%!important;object-fit:cover!important}.section{padding:72px 0}.feature{grid-template-columns:1fr!important;gap:36px!important}.global-grid{grid-template-columns:1fr 1fr;margin-top:36px}.global-grid>div{min-height:130px;padding:22px}.nav{height:74px}.wrap{width:calc(100% - 36px)}.links{top:74px}.page-hero .wrap{width:calc(100% - 36px)}}
 </style>
-<style id="kp-menu-hotfix">
-@media (max-width:900px){
-  .nav-links{display:none!important;}
-  .nav-links.kp-open{
+
+
+
+<style id="kp-v5-menu">
+@media(max-width:900px){
+  .nav{position:relative!important;z-index:9999!important}
+  .nav .menu{display:block!important;position:relative!important;z-index:10001!important;pointer-events:auto!important;cursor:pointer!important}
+  .nav .links{display:none!important}
+  .nav.kp-open .links{
     display:flex!important;position:absolute!important;top:100%!important;left:0!important;right:0!important;
-    flex-direction:column!important;align-items:flex-start!important;gap:0!important;padding:22px 28px 30px!important;
-    background:#f7f7f3!important;border-top:1px solid #d9dde0!important;z-index:99999!important;
-    box-shadow:0 18px 35px rgba(0,0,0,.10)!important;
+    flex-direction:column!important;align-items:flex-start!important;gap:0!important;
+    padding:24px 28px 30px!important;background:#f7f7f3!important;border-bottom:1px solid #d9dde0!important;
+    z-index:10000!important;box-shadow:0 18px 32px rgba(0,0,0,.10)!important
   }
-  .nav-links.kp-open a{display:block!important;width:100%!important;padding:15px 0!important;text-decoration:none!important;}
-  header,.nav,.site-header{position:relative!important;z-index:99998!important;}
-  .menu-btn,[data-menu],.menu-toggle{position:relative!important;z-index:100000!important;pointer-events:auto!important;cursor:pointer!important;}
+  .nav.kp-open .links a{display:block!important;width:100%!important;padding:14px 0!important}
 }
 </style>
 
 </head><body><header class="nav"><a class="brand" href="index.html">KP<i>·</i>HOLDINGS</a><button class="menu">MENU</button><nav class="links">
 <a href="materials.html">MATERIALS</a><a href="components.html">COMPONENTS</a><a href="machinery.html">MACHINERY</a><a href="industries.html">INDUSTRIES</a><a href="network.html">NETWORK</a><a href="company.html">COMPANY</a><a class="pill" href="rfq.html">REQUEST RFQ ↗</a></nav></header><main><section class="page-hero"><div class="wrap"><span class="eyebrow">MACHINERY</span><h1 class="page-title">From machine to production system.</h1><p>We identify capable equipment makers and coordinate technical, commercial and delivery alignment.</p></div></section><div class="visual"><img src="https://images.unsplash.com/photo-1565514020179-026b92b84bb6?auto=format&fit=crop&w=2200&q=92" alt="Machinery & Systems"></div><section class="section"><div class="wrap feature reveal"><div><span class="eyebrow">CAPABILITY</span><h2>Technical clarity.<br>Commercial reach.</h2><p>KP Holdings works from the buyer's actual requirement—specification, drawing, standard, quantity, destination and delivery target—to identify suitable supply options and coordinate the path forward.</p></div><div class="list"><div class="row"><span class="num">01</span><b>Packaging & filling systems</b><span>Supplier search, technical alignment and commercial sourcing support.</span></div><div class="row"><span class="num">02</span><b>Material handling</b><span>Supplier search, technical alignment and commercial sourcing support.</span></div><div class="row"><span class="num">03</span><b>Process equipment</b><span>Supplier search, technical alignment and commercial sourcing support.</span></div><div class="row"><span class="num">04</span><b>Factory automation</b><span>Supplier search, technical alignment and commercial sourcing support.</span></div><div class="row"><span class="num">05</span><b>Production machinery</b><span>Supplier search, technical alignment and commercial sourcing support.</span></div><div class="row"><span class="num">06</span><b>Integrated lines</b><span>Supplier search, technical alignment and commercial sourcing support.</span></div></div></div></section><section class="cta"><div class="wrap"><h2>BRING US<br>THE SPEC.</h2><a class="btn dark" href="rfq.html">START AN RFQ ↗</a></div></section></main><footer><div class="wrap foot"><div><h3>KP·HOLDINGS</h3><p>Global industrial sourcing,<br>without borders.</p></div><div><b>EXPLORE</b><p><a href="process.html">Sourcing Process</a><br><a href="quality.html">Quality & Compliance</a><br><a href="global-supply.html">Global Supply</a><br><a href="projects.html">Projects</a></p></div><div><b>CONTACT</b><p>Seoul, Republic of Korea<br>info@kpcorp.co.kr<br>www.kpcorp.co.kr</p></div></div><div class="wrap legal">© 2026 KP Holdings · Industrial sourcing without borders.</div></footer><script src="assets/site.js"></script>
-<script id="kp-menu-hotfix-js">
-document.addEventListener('DOMContentLoaded',function(){
-  var btn=document.querySelector('.menu-btn,[data-menu],.menu-toggle');
-  var nav=document.querySelector('.nav-links');
-  if(!btn||!nav) return;
-  btn.setAttribute('type','button');
-  btn.setAttribute('aria-expanded','false');
-  btn.addEventListener('click',function(e){
-    e.preventDefault(); e.stopPropagation();
-    var open=nav.classList.toggle('kp-open');
-    btn.setAttribute('aria-expanded',open?'true':'false');
-  });
-  nav.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click',function(){nav.classList.remove('kp-open');btn.setAttribute('aria-expanded','false');});
-  });
-});
+
+
+
+<script id="kp-v5-menu-js">
+(function(){
+  function init(){
+    var header=document.querySelector('.nav');
+    var btn=document.querySelector('.nav .menu');
+    var links=document.querySelector('.nav .links');
+    if(!header||!btn||!links) return;
+    btn.type='button';
+    btn.onclick=function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      header.classList.toggle('kp-open');
+      btn.setAttribute('aria-expanded',header.classList.contains('kp-open')?'true':'false');
+    };
+    links.querySelectorAll('a').forEach(function(a){
+      a.onclick=function(){ header.classList.remove('kp-open'); };
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+  else init();
+})();
 </script>
 
 </body></html>
