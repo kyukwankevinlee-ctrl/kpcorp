@@ -1,0 +1,1 @@
+Upload all files/folders in this package to the ROOT of kyukwankevinlee-ctrl/kpcorp and replace the old website files. Keep CNAME. Then hard-refresh the browser.
