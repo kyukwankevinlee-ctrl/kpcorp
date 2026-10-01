@@ -5,44 +5,16 @@
 .brand{display:flex;align-items:center}
 .brand img{display:block;height:42px;width:auto;max-width:230px;object-fit:contain}
 @media(max-width:800px){.brand img{height:38px;max-width:210px}}
-/* LOGO HOTFIX */
-.nav {
-  overflow: hidden !important;
-}
 
-.brand {
-  display: flex !important;
-  align-items: center !important;
-  width: 230px !important;
-  height: 58px !important;
-  overflow: hidden !important;
-}
-
-.brand img {
-  display: block !important;
-  width: 210px !important;
-  height: 52px !important;
-  max-width: 100% !important;
-  object-fit: contain !important;
-  object-position: left center !important;
-}
-
-@media (max-width: 800px) {
-  .nav {
-    height: 68px !important;
-    overflow: hidden !important;
-  }
-
-  .brand {
-    width: 205px !important;
-    height: 54px !important;
-    overflow: hidden !important;
-  }
-
-  .brand img {
-    width: 190px !important;
-    height: 46px !important;
-    max-width: 100% !important;
-    object-fit: contain !important;
-  }
-}
+/* IMAGE-LED FINAL UPGRADE */
+.home-visual,.visual-feature{position:relative;background:#07131f;overflow:hidden}
+.home-visual{height:clamp(360px,55vw,720px)}
+.home-visual img,.visual-feature img{width:100%;height:100%;display:block;object-fit:cover}
+.home-visual:after,.visual-feature:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(4,13,22,.78))}
+.home-visual-label,.visual-caption{position:absolute;z-index:2;left:6vw;right:6vw;bottom:42px;color:white;display:flex;justify-content:space-between;align-items:end;gap:30px}
+.home-visual-label b,.visual-caption b{font-size:11px;letter-spacing:.16em}
+.home-visual-label span,.visual-caption span{font-size:clamp(18px,2.3vw,34px);font-weight:700;max-width:650px;text-align:right}
+.visual-feature{height:clamp(330px,48vw,620px)}
+.rfq-visual{height:230px;overflow:hidden;margin-bottom:18px;border:1px solid #cfd4d7}
+.rfq-visual img{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:800px){.home-visual{height:390px}.visual-feature{height:340px}.home-visual-label,.visual-caption{bottom:25px;flex-direction:column;align-items:flex-start}.home-visual-label span,.visual-caption span{text-align:left;font-size:22px}.rfq-visual{height:180px}}
