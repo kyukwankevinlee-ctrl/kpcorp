@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Industrial Components | KP Holdings</title><meta name="description" content="KP Holdings — Global industrial sourcing without borders."><link rel="preconnect" href="https://images.unsplash.com"><link rel="stylesheet" href="/assets/style.css?v=20261002"><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Industrial Components | KP Holdings</title><meta name="description" content="KP Holdings — Global industrial sourcing without borders."><link rel="preconnect" href="https://images.unsplash.com"><link rel="stylesheet" href="/assets/style.css?v=20261002v6"><style>
 :root{--ink:#07111d;--navy:#071827;--blue:#4f8cff;--ice:#eaf2ff;--paper:#f5f4ef;--line:rgba(7,17,29,.13);--white:#fff;--muted:#697582;--max:1440px}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}img{width:100%;display:block}.wrap{width:min(calc(100% - 72px),var(--max));margin:auto}
@@ -69,18 +69,51 @@ body{overflow-x:hidden}
 
 
 
-<style id="kp-v5-menu">
+
+
+
+<style id="kp-v6-definitive">
+html,body{max-width:100%;overflow-x:hidden}
 @media(max-width:900px){
-  .nav{position:relative!important;z-index:9999!important}
-  .nav .menu{display:block!important;position:relative!important;z-index:10001!important;pointer-events:auto!important;cursor:pointer!important}
-  .nav .links{display:none!important}
-  .nav.kp-open .links{
-    display:flex!important;position:absolute!important;top:100%!important;left:0!important;right:0!important;
-    flex-direction:column!important;align-items:flex-start!important;gap:0!important;
-    padding:24px 28px 30px!important;background:#f7f7f3!important;border-bottom:1px solid #d9dde0!important;
-    z-index:10000!important;box-shadow:0 18px 32px rgba(0,0,0,.10)!important
-  }
-  .nav.kp-open .links a{display:block!important;width:100%!important;padding:14px 0!important}
+  .wrap{width:calc(100% - 36px)!important;max-width:none!important;margin-left:18px!important;margin-right:18px!important}
+  .nav{height:70px!important;padding:0 18px!important;position:fixed!important;top:0!important;left:0!important;right:0!important;z-index:99999!important;background:rgba(245,244,239,.97)!important}
+  .brand{font-size:20px!important;white-space:nowrap!important}
+  .menu{display:block!important;position:relative!important;z-index:100002!important;padding:12px 0 12px 18px!important;cursor:pointer!important;pointer-events:auto!important}
+  .links{display:none!important}
+  .nav.kp-open .links{display:flex!important;position:fixed!important;inset:70px 0 0 0!important;background:#f5f4ef!important;z-index:100001!important;flex-direction:column!important;align-items:stretch!important;gap:0!important;padding:22px 24px 40px!important;overflow-y:auto!important}
+  .nav.kp-open .links a{display:block!important;width:100%!important;padding:17px 0!important;border-bottom:1px solid rgba(7,17,29,.12)!important;font-size:14px!important;letter-spacing:.08em!important}
+  .nav.kp-open .links .pill{margin-top:18px!important;border:0!important;text-align:center!important;padding:17px 20px!important}
+  .page-hero{padding:122px 0 46px!important}
+  .page-title{font-size:clamp(44px,13vw,62px)!important;line-height:.9!important;letter-spacing:-.06em!important;overflow-wrap:anywhere!important}
+  .page-hero p{font-size:17px!important;line-height:1.55!important;max-width:100%!important}
+  .visual,.detail-visual{width:calc(100% - 36px)!important;margin:0 18px!important;height:auto!important;min-height:0!important;aspect-ratio:4/3!important}
+  .visual img,.detail-visual img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important}
+  .section{padding:64px 0!important}
+  .feature,.feature.reverse,.intro,.rfq-wrap{display:grid!important;grid-template-columns:1fr!important;gap:34px!important;margin:0!important;min-width:0!important}
+  .feature>*,.intro>*,.rfq-wrap>*{min-width:0!important;width:100%!important}
+  .feature h2,.intro h2{font-size:clamp(38px,11vw,54px)!important;line-height:.96!important;overflow-wrap:anywhere!important}
+  .feature p,.intro p{font-size:17px!important;line-height:1.65!important}
+  .list{width:100%!important;min-width:0!important}
+  .row{display:grid!important;grid-template-columns:42px minmax(0,1fr)!important;gap:7px 12px!important;padding:23px 0!important;align-items:start!important;min-width:0!important}
+  .row .num{grid-column:1!important;grid-row:1 / span 2!important;padding-top:4px!important}
+  .row b{grid-column:2!important;font-size:20px!important;line-height:1.18!important;min-width:0!important;overflow-wrap:anywhere!important}
+  .row span:not(.num){grid-column:2!important;font-size:14px!important;line-height:1.5!important;min-width:0!important;overflow-wrap:anywhere!important}
+  .grid3{grid-template-columns:1fr!important;margin-top:38px!important}
+  .card{min-height:220px!important;padding:26px!important}
+  .split{display:grid!important;grid-template-columns:1fr!important;width:100%!important;min-height:0!important}
+  .split>img{width:100%!important;height:auto!important;aspect-ratio:4/3!important;object-fit:cover!important}
+  .split .copy{padding:64px 24px!important}
+  .split h2{font-size:clamp(44px,13vw,64px)!important}
+  .metrics{grid-template-columns:1fr 1fr!important}
+  .metric{padding:30px 20px!important}
+  .orbit,.global-grid{grid-template-columns:1fr!important}
+  .orbit div,.global-grid>div{min-height:0!important;border-right:0!important;padding:24px!important}
+  .statement{padding:72px 0!important}
+  .statement h2{font-size:clamp(46px,13vw,68px)!important;line-height:.9!important}
+  .cta{padding:70px 0!important}
+  .cta h2{font-size:clamp(50px,14vw,72px)!important}
+  .form{padding:24px!important}
+  footer{padding:62px 0 28px!important}.foot{grid-template-columns:1fr!important;gap:28px!important}
 }
 </style>
 
@@ -89,26 +122,25 @@ body{overflow-x:hidden}
 
 
 
-<script id="kp-v5-menu-js">
+
+
+
+<script id="kp-v6-menu">
 (function(){
-  function init(){
-    var header=document.querySelector('.nav');
-    var btn=document.querySelector('.nav .menu');
-    var links=document.querySelector('.nav .links');
-    if(!header||!btn||!links) return;
-    btn.type='button';
-    btn.onclick=function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      header.classList.toggle('kp-open');
-      btn.setAttribute('aria-expanded',header.classList.contains('kp-open')?'true':'false');
-    };
-    links.querySelectorAll('a').forEach(function(a){
-      a.onclick=function(){ header.classList.remove('kp-open'); };
-    });
-  }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
-  else init();
+ function init(){
+   const h=document.querySelector('.nav'), b=document.querySelector('.nav .menu'), n=document.querySelector('.nav .links');
+   if(!h||!b||!n)return;
+   b.type='button'; b.setAttribute('aria-expanded','false');
+   b.addEventListener('click',function(e){
+     e.preventDefault();e.stopPropagation();
+     const open=h.classList.toggle('kp-open');
+     b.setAttribute('aria-expanded',open?'true':'false');
+     b.textContent=open?'CLOSE':'MENU';
+     document.body.style.overflow=open?'hidden':'';
+   });
+   n.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{h.classList.remove('kp-open');b.textContent='MENU';document.body.style.overflow='';}));
+ }
+ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
 })();
 </script>
 
