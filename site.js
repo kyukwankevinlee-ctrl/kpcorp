@@ -1,3 +1,1 @@
-document.querySelector(".menu")?.addEventListener("click",()=>document.querySelector(".nav")?.classList.toggle("open"));
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.animate([{opacity:0,transform:"translateY(24px)"},{opacity:1,transform:"none"}],{duration:700,easing:"cubic-bezier(.2,.7,.2,1)",fill:"both"});io.unobserve(e.target)}}),{threshold:.08});
-document.querySelectorAll(".reveal").forEach(x=>io.observe(x));
+(()=>{const b=document.querySelector(".menu-btn");if(!b)return;b.addEventListener("click",()=>{const o=document.body.classList.toggle("menu-open");b.textContent=o?"CLOSE":"MENU";b.setAttribute("aria-expanded",o)});document.querySelectorAll(".mobile-panel a").forEach(a=>a.addEventListener("click",()=>document.body.classList.remove("menu-open")));})();
